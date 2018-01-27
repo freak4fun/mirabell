@@ -7,6 +7,17 @@ npm install module@0.0.2
 Liste toller Vue Sachen
 https://github.com/vuejs/awesome-vue
 
+Layout
+http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page
+https://stackoverflow.com/questions/15709390/how-to-position-close-button-correctly
+
+Colors
+https://www.dtelepathy.com/blog/inspiration/beautiful-color-palettes-for-your-next-web-project
+
+github
+https://channel9.msdn.com/Series/Visual-Studio-Code-for-Mac-Developers/How-to-intergate-Visual-Studio-Code-and-GitHub
+https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+
 Live Viewer
 https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 

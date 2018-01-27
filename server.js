@@ -55,19 +55,27 @@ app.get('/uploads/:file(*)',(req, res) => {
 });
 
 app.get('/', function (req, res) {
-    //console.log( 'dirname ' + path.join(__dirname) );
+  //console.log( 'dirname ' + path.join(__dirname) );
     
-    //console.log( path.join(__dirname+'/index.html') );
-    res.sendFile(path.join(__dirname+'/index.html'));
+  //console.log( path.join(__dirname+'/index.html') );
+  res.sendFile(path.join(__dirname+'/index.html'));
 })
 
+app.get('/style',function(req,res){
+  res.sendFile(path.join(__dirname+'/style.htm'));
+});
+
+app.get('/test',function(req,res){
+  res.sendFile(path.join(__dirname+'/test.htm'));
+});
+
 app.get('/about',function(req,res){
-    res.sendFile(path.join(__dirname+'/about.html'));
-  });
+  res.sendFile(path.join(__dirname+'/about.html'));
+});
   
-  app.get('/sitemap',function(req,res){
-    res.sendFile(path.join(__dirname+'/sitemap.html'));
-  });
+app.get('/sitemap',function(req,res){
+  res.sendFile(path.join(__dirname+'/sitemap.html'));
+});
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
