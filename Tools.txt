@@ -1,0 +1,30 @@
+Quellen
+https://github.com/Microsoft/TypeScript-Vue-Starter#typescript-vue-starter
+
+Version installieren
+npm install module@0.0.2
+
+Liste toller Vue Sachen
+https://github.com/vuejs/awesome-vue
+
+Live Viewer
+https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+
+Server express
+https://codeforgeek.com/2015/01/render-html-file-expressjs/
+
+File Upload
+https://blog.stvmlbrn.com/2017/12/17/upload-files-using-react-to-node-express-server.html
+https://www.codexworld.com/ajax-file-upload-using-jquery-php/
+https://stackoverflow.com/questions/43013858/ajax-post-a-file-from-a-form-with-axios
+
+Axios
+https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4
+https://alligator.io/vuejs/rest-api-axios/
+https://github.com/axios/axios
+
+Start
+npm run build -- --watch (-- without reading flags)
+
+npm list <package-name> (für version (lokal))
+npm list (für alle lokal installierten packages)
