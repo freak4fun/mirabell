@@ -11,7 +11,7 @@
         <br />
         <br />
         <button @click="test($event)">test</button>
-
+        
     </main>
 </template>
 
@@ -32,6 +32,14 @@ export default Vue.extend({
             fileName: 'booklist.json',
             messageBox: { 'text': '', 'typ': 'none', 'show': false },
             showNewBook: false
+        }
+    },
+    mounted() {
+        this.loadFromFile()
+    },
+    watch: {
+        booklist: function( newValue, oldValue ) {
+            console.log( 'watch booklist', newValue.length, oldValue.length  )
         }
     },
     methods: {
@@ -63,7 +71,6 @@ export default Vue.extend({
         {
             // https://www.eurobuch.de/
             // --- Bücher vestätigen !!!
-
 
             let booksToAdd: IBook[]
             booksToAdd = [

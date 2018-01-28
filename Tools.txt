@@ -7,6 +7,9 @@ npm install module@0.0.2
 Liste toller Vue Sachen
 https://github.com/vuejs/awesome-vue
 
+vuex store
+https://blog.pusher.com/getting-started-vuex-state-management-vuejs/
+
 Layout
 http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page
 https://stackoverflow.com/questions/15709390/how-to-position-close-button-correctly

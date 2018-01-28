@@ -50,6 +50,10 @@
 
 <script lang="ts">
 import Vue from "vue"
+
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 import { IBook, addIfNotInList } from "../SimpleBook"
 
 export default Vue.extend({
@@ -70,9 +74,23 @@ export default Vue.extend({
         }
     },
     methods: {
+        addBook( book: IBook )
+        {
+            console.log( "###", this.$store.dispatch( 'ADD_BOOK', book ) )
+        },
         toggleShow()
         {
+            this.addBook( { isbn: '9823942311113', authors: [ 'Frederik T. Olsson' ], title: 'Das Netz', pages: 672 } )
+            this.addBook( { isbn: '9783644525313', authors: [ 'Daniel Suarez' ], title: 'Control', pages: 496 } )
+            this.addBook( { isbn: '9783644442818', authors: [ 'Daniel Suarez' ], title: 'Daemon', pages: 640 } )
+
+            console.log( "get_all_books", this.$store.getters.book_by_isbn )// get_book_isbn( '9783644525313' ) )
+            
+            //console.log( "all_books", this.$store.getters.all_books )
+            //console.log( "store", this.$store )
+            
             this.updateMessageBox( { 'text': 'Oh, oh! Da ist wohl etwas schief gelaufen.', 'typ': 'error', 'show': true } )
+
         },
         saveBook()
         {

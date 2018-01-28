@@ -1,6 +1,7 @@
 // src/index.ts
 
 import Vue from "vue";
+import store from './Store'
 import BooksComponent from "./components/BooksComponent.vue";
 import NavigationComponent from "./components/NavigationComponent.vue";
 import HeaderComponent from "./components/HeaderComponent.vue";
@@ -21,6 +22,7 @@ let v = new Vue({
             // booklist: new Books()
         }     
     },
+    store,
     components: {
         BooksComponent,
         NavigationComponent,
