@@ -1,35 +1,35 @@
 <!-- src/components/BookListComponent.vue -->
 
 <template>
-    <div id="book-list">
-        <h2>Buchliste</h2>
-
-        <ul id="booklist">
-            <li class="head">
-                <div class="number">#</div>
-                <div class="title">Titel</div>
-                <div class="author">Autor</div>
-                <div class="isbn">ISBN</div>    
-                <div class="pages">Seiten</div>
-            </li>
-            <li v-for="(value, key) in this.booklist">
-                <div class="number"> {{ key+1 | formatNumber }} </div>
+    <div id="book-table"><!-- BookListComponent -->
+        <div id="add-book" @click="toggleViewShowBook">New Book</div><!-- Add Book Button -->
+        <div id="book-table-top"><!-- Table-Header -->
+            Books Overview 
+        </div>
+        <div id="book-table-body"><!-- body -->
+            <div class="head-row"><!-- Head-Row -->
+                <div class="number"> # </div>
+                <div class="title"> Title </div>
+                <div class="author"> Author </div>
+                <div class="isbn"> ISBN </div>    
+                <div class="pages"> Pages </div>
+            </div>
+            <div :key="value.isbn" v-for="(value, index) in this.booklist" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
+                <div class="number"> {{ index+1 | formatNumber }} </div>
                 <div class="title"> {{ value.title }} </div>
                 <div class="author"> {{ value.authors[ 0 ] }} </div>
                 <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
                 <div class="pages"> {{ value.pages }} </div>
-            </li>
-            <li>
-                <div class="number"></div>
-                <div class="title"></div>
-                <div class="author"></div>
-                <div class="isbn"></div>    
-                <div class="pages">{{summeSeiten}}</div>
-            </li>
-            
-        </ul>
-
-    </div>
+            </div>
+        </div> 
+        <div id="book-table-foot"><!-- Table-Footer -->
+            <div class="number"></div> 
+            <div class="title"></div>  
+            <div class="author"></div>  
+            <div class="isbn"><strong>Sum of Pages:</strong> </div>  
+            <div class="pages"><strong>38293</strong> </div>
+        </div>
+    </div>  
 </template>
 
 <script lang="ts">
@@ -37,7 +37,7 @@
 import Vue from "vue"
 
 export default Vue.extend({
-    props: [ 'booklist' ],
+    props: [ 'booklist', 'updateShowNewBook', 'showNewBook' ],
     data() {
         return {            
         }
@@ -71,6 +71,10 @@ export default Vue.extend({
     },
     methods: 
     {
+        toggleViewShowBook( )
+        {
+            this.updateShowNewBook( !this.showNewBook )
+        }
     },
     computed: {
         summeSeiten: function():number 
@@ -83,54 +87,91 @@ export default Vue.extend({
 </script>
 
 <style>
-#book-list {
-    background-color: whitesmoke;
-    padding: 5px;
-    border: 1px dashed black;
-}
-#booklist {
-    list-style: none;
-    cursor: default;
-}
-#booklist li {
-    background-color: white;
-    border: 1px solid gainsboro;
-    padding: 5px;
-    border-radius: 3px;
-    margin-bottom: 3px;
-    box-shadow: 3px 3px 1px grey;
-}
-#booklist li:hover {
-    background-color: gainsboro;
-}
-#booklist .head {
-    background-color: #39414D;
-    color: white;
-    font-weight: bold;
-}
-.number, .author, .title, .isbn, .pages {
-    display: inline-block;
-}
-.number {
-    min-width: 60px;
-    max-width: 80px;
-    text-align: center;
-}
-.title {
-    font-weight: bold;
-    min-width: 480px;
-    text-align: left;
-}
-.author {
-    min-width: 200px;
-    text-align: left;
-}
-.isbn {
-    min-width: 130px;
-    text-align: center;
-}
-.pages {
-    min-width: 85px;
-    text-align: center;
-}
+   #book-table-top {
+        background-color: #BFAF80;
+        color: #493621;
+        border-radius: 5px 5px 0 0; 
+        padding: 1.5em;
+        font-weight: bold; 
+    }
+    #book-table-foot {
+        background-color: #BFAF80;
+        padding: .25em;
+        border-top: 1px solid #493621;
+        border-radius: 0 0 5px 5px; 
+    }
+    #book-table {
+        border: 1px solid #493621;
+        background-color: #C4D4AF;
+        border-radius: 5px; 
+        text-align: center;
+        margin: auto;
+        margin-bottom: 0.5em;
+        max-width: 60%;
+        position: relative;
+    }
+    .active-link {
+        color: #F8E1B4;
+    }
+    .even-row {
+        background-color: #F8E1B4;
+        padding: .25em;
+    }
+    .odd-row {
+        background-color: #F2D8A7;
+        padding: .25em;
+    }
+    .head-row {
+        font-weight: bold;
+        padding: .25em;
+        border-bottom: 1px solid #493621;
+        border-top: 1px solid #493621;
+    }
+    .head-row .author {
+        min-width: 200px;
+        text-align: center;
+    }
+    .odd-row:hover, .even-row:hover {
+        background-color: #BCC747;
+    }
+    .number, .author, .title, .isbn, .pages {
+        display: inline-block;
+    }
+    .number {
+        min-width: 60px;
+        max-width: 80px;
+        text-align: center;
+    }
+    .title {
+        font-weight: bold;
+        min-width: 480px;
+        text-align: left;
+    }
+    .author {
+        min-width: 200px;
+        text-align: left;
+    }
+    .isbn {
+        min-width: 130px;
+        text-align: center;
+    }
+    .pages {
+        min-width: 85px;
+        text-align: center;
+    }  
+    #add-book {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        border-style: solid;
+        border-color: #493621;
+        border-width: 1px; 
+        padding: 10px;    
+        border-radius: 0 5px;
+        background-color: #C4D4AF;
+        cursor: pointer;
+    }
+    .active {
+        background-color: white !important;
+    }
 </style>

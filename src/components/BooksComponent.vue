@@ -1,21 +1,25 @@
 <!-- src/components/BooksComponent.vue -->
 
 <template>
-    <div id="books-container">
-        <book-component :booklist="booklist" ></book-component>
-        <book-list-component :booklist="booklist" class="book-list"></book-list-component>
+    <main>
+        <message-component :currentMessage="messageBox" :updateMessageBox="updateMessageBox" />
+        <new-book-component :booklist="booklist" :updateMessageBox="updateMessageBox" :showNewBook="showNewBook" />
+        <book-list-component :booklist="booklist" :updateShowNewBook="updateShowNewBook" :showNewBook="showNewBook" />
+        
         <button @click="saveToFile($event)">speichern</button>
         <button @click="loadFromFile($event)">laden</button>
         <br />
         <br />
         <button @click="test($event)">test</button>
-    </div>
+
+    </main>
 </template>
 
 <script lang="ts">
 
 import Vue from "vue"
-import BookComponent from "./BookComponent.vue"
+import MessageComponent from "./MessageComponent.vue"
+import NewBookComponent from "./NewBookComponent.vue"
 import BookListComponent from "./BookListComponent.vue"
 import axios from "axios"
 
@@ -25,10 +29,18 @@ export default Vue.extend({
     data() {
         return {
             booklist: new Array<IBook>(),            
-            fileName: 'booklist.json'
+            fileName: 'booklist.json',
+            messageBox: { 'text': '', 'typ': 'none', 'show': false },
+            showNewBook: false
         }
     },
     methods: {
+        updateMessageBox( status ) {
+            this.messageBox = status
+        },
+        updateShowNewBook( status ) {
+            this.showNewBook = status
+        },
         saveToFile() 
         {
             const fileData = JSON.stringify( this.booklist )
@@ -133,19 +145,16 @@ export default Vue.extend({
         listBooks() {}
     },
     components: {
-        BookComponent,
-        BookListComponent
+        NewBookComponent,
+        BookListComponent,
+        MessageComponent
     }
 })
 </script>
 
 <style>
-#books-container {
-    background-color: gold;
-    padding: 5px;
-    border: 1px dashed red;
-}
-.book-list {
-    margin-top: 1em;
+main {
+    padding-top: 4.25em;
+    padding-bottom: 3.75em;
 }
 </style>
