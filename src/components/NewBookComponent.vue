@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="button-row">
-                    <button @click="toggleShow()" class="book-button" >Speichern</button>
+                    <button @click="saveBook()" class="book-button" >Speichern</button>
                 </td>
             </tr>
         </table>
@@ -54,7 +54,9 @@ import Vue from "vue"
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import { IBook, addIfNotInList } from "../SimpleBook"
+//import { IBook, addIfNotInList } from "../SimpleBook"
+import Book from "../Book"
+import Books from "../Books"
 
 export default Vue.extend({
     props: [ 'booklist', 'updateMessageBox', 'showNewBook' ],
@@ -63,7 +65,7 @@ export default Vue.extend({
             title: "",
             pages: 0,
             author: "",
-            isbn: "",
+            isbn: "9783492311528",
             bookInfo: ""
         }
     },
@@ -74,22 +76,45 @@ export default Vue.extend({
         }
     },
     methods: {
-        addBook( book: IBook )
+        addBook( book: Book )
         {
-            console.log( "###", this.$store.dispatch( 'ADD_BOOK', book ) )
+            this.$store.dispatch( 'ADD_BOOK', book )
+            .then( 
+                ( result ) => 
+                { 
+                    this.updateMessageBox( { 'text': result, 'typ': 'success', 'show': true } ) 
+                    console.log( 'getBookByIsbn', this.$store.getters.getBookByIsbn( book.isbn  ).isbn )
+                },
+                ( error ) => 
+                {
+                    this.updateMessageBox( { 'text': error, 'typ': 'error', 'show': true } )
+                }
+            )
+
         },
         toggleShow()
         {
-            this.addBook( { isbn: '9823942311113', authors: [ 'Frederik T. Olsson' ], title: 'Das Netz', pages: 672 } )
-            this.addBook( { isbn: '9783644525313', authors: [ 'Daniel Suarez' ], title: 'Control', pages: 496 } )
-            this.addBook( { isbn: '9783644442818', authors: [ 'Daniel Suarez' ], title: 'Daemon', pages: 640 } )
+            
+            //this.addBook( { isbn: '9823942311113', authors: [ 'Frederik T. Olsson' ], title: 'Das Netz', pages: 672 } )
+            //this.addBook( { isbn: '9783644525313', authors: [ 'Daniel Suarez' ], title: 'Control', pages: 496 } )
+            //this.addBook( { isbn: '9783644442818', authors: [ 'Daniel Suarez' ], title: 'Daemon', pages: 640 } )
 
-            console.log( "get_all_books", this.$store.getters.book_by_isbn )// get_book_isbn( '9783644525313' ) )
+            let b1: Book = new Book(
+                '9823942311113',
+                'Das Netz',
+                [ 'Frederik T. Olsson' ],
+                672    
+            )
+            
+            //console.log( "get_all_books", this.$store.getters.all_books )// get_book_isbn( '9783644525313' ) )
+            
+
+            //console.log( "get_all_books", this.$store.getters.book_by_isbn )// get_book_isbn( '9783644525313' ) )
             
             //console.log( "all_books", this.$store.getters.all_books )
             //console.log( "store", this.$store )
             
-            this.updateMessageBox( { 'text': 'Oh, oh! Da ist wohl etwas schief gelaufen.', 'typ': 'error', 'show': true } )
+            // this.updateMessageBox( { 'text': 'Oh, oh! Da ist wohl etwas schief gelaufen.', 'typ': 'error', 'show': true } )
 
         },
         saveBook()
@@ -97,35 +122,19 @@ export default Vue.extend({
             this.author = this.author.trim()
             this.title  = this.title.trim()
 
-            let currentBook: IBook = 
+            if( this.isbn.length == 0 )
             {
-                isbn: this.isbn,
-                authors: [ this.author ],
-                pages: this.pages,
-                title: this.title
-            }
-
-            if( currentBook.isbn.length == 0 )
-            {
-                this.bookInfo = "Fehler: Bitte geben Sie eine ISBN ein."
+                this.updateMessageBox( { 'text': 'Bitte geben Sie eine ISBN ein.', 'typ': 'error', 'show': true } )
                 return
             }
             
-            if( currentBook.isbn.length != 13 )
+            if( this.isbn.length != 13 )
             {
-                this.bookInfo = "Fehler: Die ISBN muss genau 13 Zeichen lang sein!"
+                this.updateMessageBox( { 'text': 'Die ISBN muss genau 13 Zeichen lang sein!', 'typ': 'error', 'show': true } )
                 return
             }
 
-
-            if( addIfNotInList( this.booklist, currentBook ) )
-            {
-                this.bookInfo = "Erfolg: Buch wurde eingetragen."
-            }
-            else
-            {
-                this.bookInfo = "Fehler: Ein Buch  mit der ISBN ist schon vorhanden."
-            }
+            this.addBook( new Book( this.isbn, this.title, [ this.author ], this.pages ) )
         }
     }
 })

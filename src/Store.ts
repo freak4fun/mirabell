@@ -2,21 +2,31 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import { IBook } from './SimpleBook'
+import Book from "./Book"
+import Books from "./Books"
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        books: new Array<IBook>()
+        books: new Books()
     },
     actions: {
-        ADD_BOOK: function( { commit }, new_book ): boolean {
-            console.log( "actions ADD_BOOK", new_book )
-            var set_book = {
-                book: new_book
-            }   
-            commit( 'ADD_BOOK_MUTATION', set_book )     
-            return false
+        ADD_BOOK: function( { commit }, new_book: Book ) {
+            return new Promise( ( resolve, reject ) => {
+                setTimeout( 
+					() => { 
+                        if( store.state.books.indexOfIsbn( new_book.isbn ) == -1 )
+                        {
+                            commit( 'SET_BOOK', new_book )
+                            resolve( "'" + new_book.isbn + "' was added." )
+                        } 
+                        else
+                        {
+                            reject( "Sorry! '" + new_book.isbn + "' already in list." )
+                        }
+                    })        
+                })
         },
         GET_BOOK: function( { commit }, isbn ) {
 
@@ -24,10 +34,10 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
-        ADD_BOOK_MUTATION: function( state, book )
+        SET_BOOK: function( state, book )
         {
             console.log( "mutations ADD_BOOK_MUTATION", book )
-            state.books.push( book )
+            state.books.addBook( book )
         },
         GET_BOOK_MUTATION: function( state, isbn )
         {
@@ -37,19 +47,19 @@ const store = new Vuex.Store({
     },
     getters: {
         book_by_isbn: state => {
-            console.log( "book_by_isbn", state.books )
-            var filtered = state.books.filter(function(el){
-                return true //el.isbn == isbn
-            })
-            return filtered
+            return state.books.getBooks()
         },
         all_books: state => {
-            console.log( "getters all_books", state.books )
-            var filtered = state.books.filter(function(el){
-                return true   
-            })
-            return filtered
+            return state.books.getBooks()
+        },
+        all: state => {
+            return state.books
+        },        
+        getBookByIsbn: (state, getters) => ( isbn ) => {
+            return store.state.books.getBookByIsbn( isbn )
         }
+          
+
     }    
 })
 
