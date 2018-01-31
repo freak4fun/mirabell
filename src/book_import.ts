@@ -33,7 +33,33 @@ const book_import = [
     { isbn: '9783940626356', authors: [ 'William Hertling' ],   title: 'Avogadro Corp.',                    pages: 308 },            
     
     
+    { isbn: '9783499245671', authors: [ 'Adam Fawer' ],         title: 'Gnosis',                            pages: 720 },
+    { isbn: '9783426633342', authors: [ 'Bill Napier' ],        title: 'Der 77. Grad: Mysterythriller',     pages: 416 },
+    { isbn: '9783492268882', authors: [ 'Stan Nicholls' ],      title: 'Die Orks',                          pages: 799 },
+    { isbn: '9783453433731', authors: [ 'Michael Cordy' ],      title: 'Die Genesis-Verschwörung',          pages: 560 },
+    { isbn: '9783453523074', authors: [ 'Elizabeth Haydon' ],   title: 'Tochter des Sturms',                pages: 608 },
+    { isbn: '9783442465262', authors: [ 'Eric Meyer' ],         title: 'Die Versailles Verschwörung',       pages: 576 },
+    { isbn: '9783453436558', authors: [ 'Kathy Reichs' ],       title: 'Hals über Kopf',                    pages: 432 },
+    { isbn: '9783453436572', authors: [ 'Kathy Reichs' ],       title: 'Lasst Knochen sprechen',            pages: 352 },
+    { isbn: '9783453152274', authors: [ 'Philip Pullman' ],     title: 'Das Magische Messer',               pages: 336 },
+    { isbn: '9783453137448', authors: [ 'Philip Pullman' ],     title: 'Der goldene Kompass',               pages: 410 },
+    { isbn: '9783453864245', authors: [ 'Philip Pullman' ],     title: 'Das Bernstein-Teleskop',            pages: 592 },
+    { isbn: '9783453521957', authors: [ 'Angela Kuepper' ],     title: 'Accelerando',                       pages: 560 },
+    { isbn: '9783426621738', authors: [ 'Andreas Franz' ],      title: 'Kaltes Blut',                       pages: 557 },
+    { isbn: '9783423210867', authors: [ 'Agustín Sánchez Vidal' ],  title: 'Kryptum',                       pages: 752 },
+    { isbn: '9783453811461', authors: [ 'Matt Richtel' ],       title: 'Süchtig',                           pages: 400 },
+    { isbn: '9783442371266', authors: [ 'Jeffery Deaver' ],     title: 'Der gehetzte Uhrmacher',            pages: 512 },
+    { isbn: '9783426501276', authors: [ 'M. M. Buckner' ],      title: 'Watermind: Es kann jederzeit passieren',       pages: 464 },
+    { isbn: '9783499255489', authors: [ 'P. J. Tracy' ],        title: 'Memento',                           pages: 320 },
+    { isbn: '9783404156566', authors: [ 'Peter Millar' ],       title: 'Die schwarze Madonna',              pages: 460 },
+    { isbn: '', authors: [ '' ],         title: '',       pages:  },
+    { isbn: '', authors: [ '' ],         title: '',       pages:  },
+    { isbn: '', authors: [ '' ],         title: '',       pages:  },
+    { isbn: '', authors: [ '' ],         title: '',       pages:  },
+    { isbn: '', authors: [ '' ],         title: '',       pages:  },
     
+     
+
     // Vorlage
 //    { isbn: '', authors: [ '' ],       title: '',                        pages:  },
     
