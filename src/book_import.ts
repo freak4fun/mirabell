@@ -49,16 +49,17 @@ const book_import = [
     { isbn: '9783423210867', authors: [ 'Agustín Sánchez Vidal' ],  title: 'Kryptum',                       pages: 752 },
     { isbn: '9783453811461', authors: [ 'Matt Richtel' ],       title: 'Süchtig',                           pages: 400 },
     { isbn: '9783442371266', authors: [ 'Jeffery Deaver' ],     title: 'Der gehetzte Uhrmacher',            pages: 512 },
-    { isbn: '9783426501276', authors: [ 'M. M. Buckner' ],      title: 'Watermind: Es kann jederzeit passieren',       pages: 464 },
+    { isbn: '9783426501276', authors: [ 'M. M. Buckner' ],      title: 'Watermind: Es kann jederzeit passieren',    pages: 464 },
     { isbn: '9783499255489', authors: [ 'P. J. Tracy' ],        title: 'Memento',                           pages: 320 },
     { isbn: '9783404156566', authors: [ 'Peter Millar' ],       title: 'Die schwarze Madonna',              pages: 460 },
-    { isbn: '', authors: [ '' ],         title: '',       pages:  },
-    { isbn: '', authors: [ '' ],         title: '',       pages:  },
-    { isbn: '', authors: [ '' ],         title: '',       pages:  },
-    { isbn: '', authors: [ '' ],         title: '',       pages:  },
-    { isbn: '', authors: [ '' ],         title: '',       pages:  },
-    
-     
+    { isbn: '9783453171831', authors: [ 'Tom Clancy' ],         title: "Tom Clancy's Net Force 3, Ehrenkodex",      pages: 430 },
+    { isbn: '9783404121687', authors: [ 'Ken Follett' ],        title: 'Nacht über den Wassern',            pages: 536 },
+    { isbn: '9783404149117', authors: [ 'Ken Follett' ],        title: 'Das zweite Gedächtnis',             pages: 448 },
+    { isbn: '9783442366408', authors: [ 'Jenna C. Black' ],     title: 'Der Puppenmacher',                  pages: 416 },
+    { isbn: '9783453436824', authors: [ 'Tom Clancy' ],         title: 'Red Rabbit',                        pages: 736 },
+    { isbn: '978-3426629024', authors: [ 'Scott McBain' ],      title: 'Der Mastercode',                    pages: 560 },
+    { isbn: '978-3404605965', authors: [ 'Stefan Bonner' ],     title: 'Generation Doof',                   pages: 336 },
+    { isbn: '978-3548268354', authors: [ 'José Carlos Somoz' ], title: 'Das Einstein-Projekt',              pages: 576 },
 
     // Vorlage
 //    { isbn: '', authors: [ '' ],       title: '',                        pages:  },
