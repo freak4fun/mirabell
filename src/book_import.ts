@@ -57,9 +57,32 @@ const book_import = [
     { isbn: '9783404149117', authors: [ 'Ken Follett' ],        title: 'Das zweite Gedächtnis',             pages: 448 },
     { isbn: '9783442366408', authors: [ 'Jenna C. Black' ],     title: 'Der Puppenmacher',                  pages: 416 },
     { isbn: '9783453436824', authors: [ 'Tom Clancy' ],         title: 'Red Rabbit',                        pages: 736 },
-    { isbn: '978-3426629024', authors: [ 'Scott McBain' ],      title: 'Der Mastercode',                    pages: 560 },
-    { isbn: '978-3404605965', authors: [ 'Stefan Bonner' ],     title: 'Generation Doof',                   pages: 336 },
-    { isbn: '978-3548268354', authors: [ 'José Carlos Somoz' ], title: 'Das Einstein-Projekt',              pages: 576 },
+    { isbn: '9783426629024', authors: [ 'Scott McBain' ],       title: 'Der Mastercode',                    pages: 560 },
+    { isbn: '9783404605965', authors: [ 'Stefan Bonner' ],      title: 'Generation Doof',                   pages: 336 },
+    { isbn: '9783548268354', authors: [ 'José Carlos Somoz' ],  title: 'Das Einstein-Projekt',              pages: 576 },
+    { isbn: '9783548252612', authors: [ 'Wolfgang Hohlbein' ],  title: 'Der Vampyr',                        pages: 348, series: 'Die Chronik der Unsterblichen',    episode: '2' },
+    { isbn: '9783548251653', authors: [ 'Wolfgang Hohlbein' ],  title: 'Am Abgrund',                        pages: 359, series: 'Die Chronik der Unsterblichen',    episode: '1' },
+    { isbn: '9783548255545', authors: [ 'Wolfgang Hohlbein' ],  title: 'Der Untergang',                     pages: 416, series: 'Die Chronik der Unsterblichen',    episode: '4' },
+    { isbn: '9783548263922', authors: [ 'Wolfgang Hohlbein' ],  title: 'Der Gejagte',                       pages: 432, series: 'Die Chronik der Unsterblichen',    episode: '7' },
+    { isbn: '9783548253787', authors: [ 'Wolfgang Hohlbein' ],  title: 'Der Todesstoss',                    pages: 416, series: 'Die Chronik der Unsterblichen',    episode: '4' },
+    { isbn: '9783548261560', authors: [ 'Wolfgang Hohlbein' ],  title: 'Die Blutgräfin',                    pages: 429, series: 'Die Chronik der Unsterblichen',    episode: '6' },
+    { isbn: '9783548258096', authors: [ 'Wolfgang Hohlbein' ],  title: 'Die Wiederkehr',                    pages: 382, series: 'Die Chronik der Unsterblichen',    episode: '5' },
+    { isbn: '9783453877634', authors: [ 'Wolfgang Hohlbein' ],  title: 'Dreizehn',                          pages: 522 },
+    { isbn: '9780553826074', authors: [ 'Dennis Lehane' ],      title: 'Shutter Island',                    pages: 363 },
+    { isbn: '9783764504922', authors: [ 'Marc Elsberg' ],       title: 'ZERO - Sie wissen, was du tust',    pages: 480 },
+    { isbn: '9783833309397', authors: [ 'Karl Olsberg' ],       title: 'Delete',                            pages: 464 },
+    { isbn: '9783442368297', authors: [ 'Jeffery Deaver' ],     title: 'Das Teufelsspiel',                  pages: 544, series: 'Lincoln-Rhyme-Thriller',           episode: '6'  },
+    { isbn: '9783404175031', authors: [ 'Dan Brown' ],          title: 'Diabolus',                          pages: 528 },
+    { isbn: '9783423625807', authors: [ 'Brian Falkner' ],      title: 'Angriff aus dem Netz',              pages: 416 },
+    { isbn: '9783442469574', authors: [ 'Michael Crichton' ],   title: 'Welt in Angst',                     pages: 608 },
+    { isbn: '9783570301357', authors: [ 'Thomas Feibel' ],      title: 'BACK-UP - ein hacker-thriller',     pages: 192 },
+    { isbn: '9783401057033', authors: [ 'Frank Stieper' ],      title: 'Return to Sender. Ein Hackerthriller',      pages: 248 },
+    { isbn: '9783404243815', authors: [ 'Andreas Eschbach' ],   title: 'Quest',                             pages: 560 },
+    { isbn: '9783548268286', authors: [ 'Andreu Carranza', 'Esteban Martin' ],  title: 'Die dritte Pforte', pages: 464 },
+    { isbn: '9783453861893', authors: [ 'Michael Connelly' ],   title: 'Dunkler als die Nacht',             pages: 463 },
+    { isbn: '9783404156139', authors: [ 'Jan Gaspard' ],        title: 'Offenbarung 23 - Die Wahrheit ist nicht genug', pages: 286 },
+    { isbn: '9783404242849', authors: [ 'Larry Niven' ],        title: 'Ein Geschenk der Erde',             pages: 349 },
+    { isbn: '9783453189256', authors: [ 'Wolfgang Hohlbein' ],  title: 'Spiegelzeit',                       pages: 509 }
 
     // Vorlage
 //    { isbn: '', authors: [ '' ],       title: '',                        pages:  },
@@ -67,7 +90,7 @@ const book_import = [
     
     // schon mal erfasst
 //    { isbn: '9783833310058', authors: [ 'Karl Olsberg' ],       title: 'Enter',                             pages: 432 },
-//    { isbn: '9783833309397', authors: [ 'Karl Olsberg' ],       title: 'Delete',                            pages: 464 },
+
 //    { isbn: '9783746623672', authors: [ 'Karl Olsberg' ],       title: 'Das System',                        pages: 403 },
     
     // noch nicht
@@ -85,7 +108,6 @@ const book_import = [
 //    { isbn: '9783462308204', authors: [ 'Dave Eggers' ],        title: 'Der Circle',                        pages: 560 },
 //    { isbn: '9783641074319', authors: [ 'Marc Elsberg' ],       title: 'BLACKOUT - Morgen ist es zu spät',  pages: 800 },
 //    { isbn: '9783644557116', authors: [ 'Patrick Lee' ],        title: 'Das Signal',                        pages: 464 },
-//    { isbn: '9783734100932', authors: [ 'Marc Elsberg' ],       title: 'ZERO - Sie wissen, was du tust',    pages: 496 },
 //    { isbn: '9783841211309', authors: [ 'Karl Olsberg' ],       title: 'Mirror',                            pages: 400 }, 
 //    { isbn: '9783827076731', authors: [ 'Karl Olsberg' ],       title: 'Delete',                            pages: 464 },          
 //    { isbn: '9783833310058', authors: [ 'Karl Olsberg' ],       title: 'Enter',                             pages: 432 },            
