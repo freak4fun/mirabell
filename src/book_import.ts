@@ -80,7 +80,7 @@ const book_import = [
     { isbn: '9783453861893', authors: [ 'Michael Connelly' ],   title: 'Dunkler als die Nacht',             pages: 463 },
     { isbn: '9783404156139', authors: [ 'Jan Gaspard' ],        title: 'Offenbarung 23 - Die Wahrheit ist nicht genug', pages: 286 },
     { isbn: '9783404242849', authors: [ 'Larry Niven' ],        title: 'Ein Geschenk der Erde',             pages: 349 },
-    { isbn: '9783453189256', authors: [ 'Wolfgang Hohlbein' ],  title: 'Spiegelzeit',                       pages: 509 }
+    { isbn: '9783453189256', authors: [ 'Wolfgang Hohlbein' ],  title: 'Spiegelzeit',                       pages: 509 },
     { isbn: '9783453437210', authors: [ 'Koushun Takami' ],     title: 'Battle Royale',                     pages: 624 },
     { isbn: '9783492285339', authors: [ 'Mary Gentle' ],        title: 'Die letzte Schlacht der Orks',      pages: 656 },
     { isbn: '9783833310058', authors: [ 'Karl Olsberg' ],       title: 'Enter',                             pages: 432 },
