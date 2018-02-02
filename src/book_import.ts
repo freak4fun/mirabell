@@ -30,9 +30,7 @@ const book_import = [
     { isbn: '9783570309636', authors: [ 'James Dashner' ],      title: 'Das Spiel ist aus',                 pages: 448 },            
     { isbn: '9783734101878', authors: [ 'Will Jordan' ],        title: 'Operation Black List',              pages: 544 },     
     { isbn: '9783734101731', authors: [ 'Bruce McCabe' ],       title: 'Unfehlbar',                         pages: 512 },            
-    { isbn: '9783940626356', authors: [ 'William Hertling' ],   title: 'Avogadro Corp.',                    pages: 308 },            
-    
-    
+    { isbn: '9783940626356', authors: [ 'William Hertling' ],   title: 'Avogadro Corp.',                    pages: 308 },                
     { isbn: '9783499245671', authors: [ 'Adam Fawer' ],         title: 'Gnosis',                            pages: 720 },
     { isbn: '9783426633342', authors: [ 'Bill Napier' ],        title: 'Der 77. Grad: Mysterythriller',     pages: 416 },
     { isbn: '9783492268882', authors: [ 'Stan Nicholls' ],      title: 'Die Orks',                          pages: 799 },
@@ -49,10 +47,10 @@ const book_import = [
     { isbn: '9783423210867', authors: [ 'Agustín Sánchez Vidal' ],  title: 'Kryptum',                       pages: 752 },
     { isbn: '9783453811461', authors: [ 'Matt Richtel' ],       title: 'Süchtig',                           pages: 400 },
     { isbn: '9783442371266', authors: [ 'Jeffery Deaver' ],     title: 'Der gehetzte Uhrmacher',            pages: 512 },
-    { isbn: '9783426501276', authors: [ 'M. M. Buckner' ],      title: 'Watermind: Es kann jederzeit passieren',    pages: 464 },
+    { isbn: '9783426501276', authors: [ 'M. M. Buckner' ],      title: 'Watermind: Es kann jederzeit passieren',        pages: 464 },
     { isbn: '9783499255489', authors: [ 'P. J. Tracy' ],        title: 'Memento',                           pages: 320 },
     { isbn: '9783404156566', authors: [ 'Peter Millar' ],       title: 'Die schwarze Madonna',              pages: 460 },
-    { isbn: '9783453171831', authors: [ 'Tom Clancy' ],         title: "Tom Clancy's Net Force 3, Ehrenkodex",      pages: 430 },
+    { isbn: '9783453171831', authors: [ 'Tom Clancy' ],         title: "Tom Clancy's Net Force 3, Ehrenkodex",          pages: 430 },
     { isbn: '9783404121687', authors: [ 'Ken Follett' ],        title: 'Nacht über den Wassern',            pages: 536 },
     { isbn: '9783404149117', authors: [ 'Ken Follett' ],        title: 'Das zweite Gedächtnis',             pages: 448 },
     { isbn: '9783442366408', authors: [ 'Jenna C. Black' ],     title: 'Der Puppenmacher',                  pages: 416 },
@@ -76,20 +74,40 @@ const book_import = [
     { isbn: '9783423625807', authors: [ 'Brian Falkner' ],      title: 'Angriff aus dem Netz',              pages: 416 },
     { isbn: '9783442469574', authors: [ 'Michael Crichton' ],   title: 'Welt in Angst',                     pages: 608 },
     { isbn: '9783570301357', authors: [ 'Thomas Feibel' ],      title: 'BACK-UP - ein hacker-thriller',     pages: 192 },
-    { isbn: '9783401057033', authors: [ 'Frank Stieper' ],      title: 'Return to Sender. Ein Hackerthriller',      pages: 248 },
+    { isbn: '9783401057033', authors: [ 'Frank Stieper' ],      title: 'Return to Sender. Ein Hackerthriller',          pages: 248 },
     { isbn: '9783404243815', authors: [ 'Andreas Eschbach' ],   title: 'Quest',                             pages: 560 },
     { isbn: '9783548268286', authors: [ 'Andreu Carranza', 'Esteban Martin' ],  title: 'Die dritte Pforte', pages: 464 },
     { isbn: '9783453861893', authors: [ 'Michael Connelly' ],   title: 'Dunkler als die Nacht',             pages: 463 },
     { isbn: '9783404156139', authors: [ 'Jan Gaspard' ],        title: 'Offenbarung 23 - Die Wahrheit ist nicht genug', pages: 286 },
     { isbn: '9783404242849', authors: [ 'Larry Niven' ],        title: 'Ein Geschenk der Erde',             pages: 349 },
     { isbn: '9783453189256', authors: [ 'Wolfgang Hohlbein' ],  title: 'Spiegelzeit',                       pages: 509 }
-
+    { isbn: '9783453437210', authors: [ 'Koushun Takami' ],     title: 'Battle Royale',                     pages: 624 },
+    { isbn: '9783492285339', authors: [ 'Mary Gentle' ],        title: 'Die letzte Schlacht der Orks',      pages: 656 },
+    { isbn: '9783833310058', authors: [ 'Karl Olsberg' ],       title: 'Enter',                             pages: 432 },
+    { isbn: '9783453437715', authors: [ 'Kathy Reichs' ],       title: 'Knochenjagd',                       pages: 400, series: 'Die Tempe-Brennan-Romane',         episode: '15' },
+    { isbn: '9783426509050', authors: [ 'Daniel H. Wilson' ],   title: 'Robocalypse',                       pages: 464 },
+    { isbn: '9783838715001', authors: [ 'Fabio Genovesi' ],     title: 'Fische füttern',                    pages: 448 },
+    { isbn: '9783453315600', authors: [ 'Ramez Naam' ],         title: 'Nexus',                             pages: 624 },            
+    { isbn: '9783453199088', authors: [ 'Douglas Adams' ],      title: 'Der Elektrische Mönch',             pages: 283 },
+    { isbn: '9783462046625', authors: [ 'Tom Hillenbrand' ],    title: 'Drohnenland',                       pages: 432 },
+    { isbn: '9783453534704', authors: [ 'Matthew Mather' ],     title: 'Cyberstorm',                        pages: 448 },
+    { isbn: '9783442473496', authors: [ 'Joy Fielding' ],       title: 'Im Koma',                           pages: 415 },
+    { isbn: '9783426500491', authors: [ 'Douglas Preston' ],    title: 'Dark Zero',                         pages: 480 },
+    { isbn: '9783404171699', authors: [ 'M. Sean Coleman' ],    title: 'Netwars - Der Code',                pages: 480 },
+    { isbn: '9783492264396', authors: [ 'Jenk Saborowski' ],    title: 'Operation Blackmail',               pages: 382 },
+//    { isbn: '978-3453185821', authors: [ 'Herbert Asbury' ],       title: 'Gangs of New York',            pages: ??? },
+    { isbn: '978-3453082304', authors: [ 'Douglas Adams' ],     title: 'Einmal Rupert und zurück',          pages: 272 },
+    { isbn: '978-3596139842', authors: [ 'Clifford Stoll' ],    title: 'Kuckucksei',                        pages: 457 },
+    { isbn: '978-3404150885', authors: [ 'Rogelio J. Pineiro' ],    title: 'De@dline',                      pages: 445 },
+    { isbn: '978-3404259205', authors: [ 'Rogelio J. Pineiro' ],    title: 'CH@OS',                         pages: 445 },
+    { isbn: '9783404148806', authors: [ 'Rogelio J. Pineiro' ],     title: 'P@nik',                         pages: 383 },
+    { isbn: '978-3404152681', authors: [ 'Rogelio J. Pineiro' ],    title: 'Firew@ll',                      pages: 650 }
+    
     // Vorlage
 //    { isbn: '', authors: [ '' ],       title: '',                        pages:  },
     
     
     // schon mal erfasst
-//    { isbn: '9783833310058', authors: [ 'Karl Olsberg' ],       title: 'Enter',                             pages: 432 },
 
 //    { isbn: '9783746623672', authors: [ 'Karl Olsberg' ],       title: 'Das System',                        pages: 403 },
     
@@ -100,11 +118,9 @@ const book_import = [
     // unklar
     
 
-//    { isbn: '9783499291333', authors: [ 'Daniel Suarez' ],      title: 'Bios',                              pages: 544 },
 //    { isbn: '9783644442917', authors: [ 'Daniel Suarez' ],      title: 'Darknet',                           pages: 480 },
 //    { isbn: '9783644525313', authors: [ 'Daniel Suarez' ],      title: 'Control',                           pages: 496 },
 //    { isbn: '9783644442818', authors: [ 'Daniel Suarez' ],      title: 'Daemon',                            pages: 640 },
-//    { isbn: '9783462307931', authors: [ 'Tom Hillenbrand' ],    title: 'Drohnenland',                       pages: 432 },
 //    { isbn: '9783462308204', authors: [ 'Dave Eggers' ],        title: 'Der Circle',                        pages: 560 },
 //    { isbn: '9783641074319', authors: [ 'Marc Elsberg' ],       title: 'BLACKOUT - Morgen ist es zu spät',  pages: 800 },
 //    { isbn: '9783644557116', authors: [ 'Patrick Lee' ],        title: 'Das Signal',                        pages: 464 },
@@ -115,7 +131,6 @@ const book_import = [
 //    { isbn: '9783746626895', authors: [ 'Karl Olsberg' ],       title: 'Glanz',                             pages: 400 },            
 //    { isbn: '9783499239410', authors: [ 'Adam Fawer' ],         title: 'Null',                              pages: 585 },            
 //    { isbn: '9783641140021', authors: [ 'James Dashner' ],      title: 'Gegen die Spielregeln',             pages: 416 },            
-//    { isbn: '9783453315600', authors: [ 'Ramez Naam' ],         title: 'Nexus',                             pages: 624 },            
     
     
     
