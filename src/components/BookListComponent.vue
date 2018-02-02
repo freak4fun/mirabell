@@ -1,20 +1,22 @@
 <!-- src/components/BookListComponent.vue -->
 
 <template>
-    <div id="book-table"><!-- BookListComponent -->
-        <div id="add-book" @click="toggleViewShowBook">New Book</div><!-- Add Book Button -->
-        <div id="book-table-top"><!-- Table-Header -->
+    <div id="book-table"><!-- Bücherliste -->
+        <div id="add-book" @click="toggleViewShowBook">New Book</div><!-- Buch hinzufügen ein-/ausblenden -->
+        <div id="book-table-top">
             Books Overview 
         </div>
-        <div id="book-table-body"><!-- body -->
-            <div class="head-row"><!-- Head-Row -->
+        <div id="book-table-body">
+            <!-- Überschriften -->
+            <div class="head-row">
                 <div class="number"> # </div>
                 <div class="title"> Title </div>
                 <div class="author"> Author </div>
                 <div class="isbn"> ISBN </div>    
                 <div class="pages"> Pages </div>
             </div>
-            <div :key="value.isbn" @click="test(value.isbn)" v-for="(value, index) in this.$store.getters.getBooks" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
+            <!-- einzelne Bücher -->
+            <div :key="value.isbn" v-for="(value, index) in this.$store.getters.getBooks" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
                 <div class="number"> {{ index+1 | formatNumber }} </div>
                 <div class="title"> {{ value.title }} </div>
                 <div class="author"> {{ value.author }} </div>
@@ -23,7 +25,8 @@
                 <button @click="deleteBook(value.isbn)" class="book-delete-button" >X</button>
             </div>
         </div> 
-        <div id="book-table-foot"><!-- Table-Footer -->
+        <!-- Fuß-Zeile -->
+        <div id="book-table-foot">
             <div class="number"></div> 
             <div class="title"></div>  
             <div class="author"></div>  
@@ -46,7 +49,7 @@ export default Vue.extend({
         formatNumber: function( value: number ): string 
         {
             let pages: string = value.toString()
-            switch (pages.length) 
+            switch( pages.length ) 
             {
                 case 1:
                     return '00' + pages
@@ -70,9 +73,6 @@ export default Vue.extend({
     },
     methods: 
     {
-        test( isbn ) {
-            console.log( 'book isbn', JSON.stringify( this.$store.getters.getBookByIsbn( isbn ) ) )
-        },
         toggleViewShowBook( )
         {
             const isNewBookVisible: boolean = this.$store.getters.newBookIsVisible
@@ -137,11 +137,9 @@ export default Vue.extend({
     }
     .even-row {
         background-color: #F8E1B4;
-        padding: .25em;
     }
     .odd-row {
         background-color: #F2D8A7;
-        padding: .25em;
     }
     .head-row {
         font-weight: bold;

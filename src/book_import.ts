@@ -131,8 +131,7 @@ const book_import = [
 //    { isbn: '9783746626895', authors: [ 'Karl Olsberg' ],       title: 'Glanz',                             pages: 400 },            
 //    { isbn: '9783499239410', authors: [ 'Adam Fawer' ],         title: 'Null',                              pages: 585 },            
 //    { isbn: '9783641140021', authors: [ 'James Dashner' ],      title: 'Gegen die Spielregeln',             pages: 416 },            
-    
-    
-    
 
 ]
+
+export default book_import

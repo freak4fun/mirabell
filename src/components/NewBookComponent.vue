@@ -61,10 +61,10 @@ export default Vue.extend({
     props: [ 'updateMessageBox' ],
     data() {
         return {
-            title: "Bios",
-            pages: 544,
-            author: "Daniel Suarez",
-            isbn: "9783499291333"
+            title: "",
+            pages: 0,
+            author: "",
+            isbn: ""
         }
     },
     watch: {
@@ -88,8 +88,6 @@ export default Vue.extend({
                 { 
                     this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
                     this.updateMessageBox( { 'text': result, 'typ': 'success' } ) 
-//                    console.log( 'getBookByIsbn', this.$store.getters.getBookByIsbn( book.isbn  ).isbn )
-                    console.log( 'getBooks', this.$store.getters.getBooks[0].isbn )
                 },
                 ( error ) => 
                 {
