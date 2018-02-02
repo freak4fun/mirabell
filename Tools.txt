@@ -15,6 +15,7 @@ https://scotch.io/tutorials/state-management-in-vue-getting-started-with-vue
 Layout
 http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page
 https://stackoverflow.com/questions/15709390/how-to-position-close-button-correctly
+https://vuejs.org/v2/examples/grid-component.html
 
 Colors
 https://www.dtelepathy.com/blog/inspiration/beautiful-color-palettes-for-your-next-web-project
