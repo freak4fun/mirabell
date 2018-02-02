@@ -1,13 +1,14 @@
 <!-- src/components/MessageComponent.vue -->
 
 <template>
-    <div v-show="currentMessage.show" id="message-box" class="message-box" :class="this.showClass" @click="closeMessage">
+    <div v-show="this.isVisible" id="message-box" class="message-box" :class="this.showClass" @click="closeMessage">
         {{ currentMessage.text }}
     </div> 
 </template>
 
 <script lang="ts">
 import Vue from "vue"
+import { mapState } from 'vuex'
 
 export default Vue.extend({
     props: ['currentMessage', 'updateMessageBox'],
@@ -17,15 +18,21 @@ export default Vue.extend({
                 'message-box-error': false,
                 'message-box-success': false,
                 'message-box-info': false,
-                'message-box-warning': true
+                'message-box-warning': true,
             }
         }
     },
     methods: {
         closeMessage()
         {
-            this.currentMessage.show = false
-            this.updateMessageBox( this.currentMessage )
+            this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', false )        
+        }
+    },
+    computed:
+    {
+        isVisible(): boolean
+        {
+            return this.$store.getters.messageBoxIsVisible
         }
     },
     watch: {
@@ -61,5 +68,15 @@ export default Vue.extend({
     text-align: center;
     margin: 0 auto 1em auto;
     border: 1px solid transparent;
+
+    transition-property: visibility, opacity;
+    transition-duration: 0s, 1s;
+}
+#message-box.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition-property: opacity, visibility;
+    transition-duration: 1s, 0s;
+    transition-delay: 0s, 1s;
 }
 </style>

@@ -27,7 +27,7 @@ export default class Book
         }
         return false
     }
-
+   
     public removeAuthor( author: string ): boolean
     {
         if( author != "" && this._authors.indexOf( author ) == -1 )
@@ -36,6 +36,17 @@ export default class Book
             return true
         }
         return false
+    }
+
+    public set author( newAuthor: string )
+    {
+        this._authors[ 0 ] = newAuthor
+    }
+
+
+    public get author(): string
+    {
+        return this._authors[ 0 ]
     }
 
     public set title( newtitle: string )

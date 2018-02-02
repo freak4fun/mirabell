@@ -14,12 +14,13 @@
                 <div class="isbn"> ISBN </div>    
                 <div class="pages"> Pages </div>
             </div>
-            <div :key="value.isbn" v-for="(value, index) in this.booklist" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
+            <div :key="value.isbn" @click="test(value.isbn)" v-for="(value, index) in this.$store.getters.getBooks" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
                 <div class="number"> {{ index+1 | formatNumber }} </div>
                 <div class="title"> {{ value.title }} </div>
-                <div class="author"> {{ value.authors[ 0 ] }} </div>
+                <div class="author"> {{ value.author }} </div>
                 <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
                 <div class="pages"> {{ value.pages }} </div>
+                <button @click="deleteBook(value.isbn)" class="book-delete-button" >X</button>
             </div>
         </div> 
         <div id="book-table-foot"><!-- Table-Footer -->
@@ -27,7 +28,7 @@
             <div class="title"></div>  
             <div class="author"></div>  
             <div class="isbn"><strong>Sum of Pages:</strong> </div>  
-            <div class="pages"><strong>38293</strong> </div>
+            <div class="pages"><strong>{{summeSeiten}}</strong> </div>
         </div>
     </div>  
 </template>
@@ -36,12 +37,11 @@
 // https://dribbble.com/shots/785047-Work-Project
 import Vue from "vue"
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 export default Vue.extend({
-    props: [ 'booklist', 'updateShowNewBook', 'showNewBook' ],
-    data() {
-        return {            
-        }
-    },
+    props: [ 'updateMessageBox' ],
     filters: {
         formatNumber: function( value: number ): string 
         {
@@ -50,7 +50,6 @@ export default Vue.extend({
             {
                 case 1:
                     return '00' + pages
-
                 case 2:
                     return '0' + pages
                 default:
@@ -71,18 +70,41 @@ export default Vue.extend({
     },
     methods: 
     {
+        test( isbn ) {
+            console.log( 'book isbn', JSON.stringify( this.$store.getters.getBookByIsbn( isbn ) ) )
+        },
         toggleViewShowBook( )
         {
-            this.updateShowNewBook( !this.showNewBook )
+            const isNewBookVisible: boolean = this.$store.getters.newBookIsVisible
+            this.$store.dispatch( 'NEW_BOOK_VISIBLE', !isNewBookVisible )
+        },
+        deleteBook( isbn )
+        {
+            console.log( isbn )
+            this.$store.dispatch( 'DELETE_BOOK', isbn )
+            .then( 
+                ( result ) => 
+                { 
+                    this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                    this.updateMessageBox( { 'text': result, 'typ': 'success' } ) 
+                },
+                ( error ) => 
+                {
+                    this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                    this.updateMessageBox( { 'text': error, 'typ': 'error' } )
+                }
+            )
         }
     },
     computed: {
         summeSeiten: function():number 
         {
-            return this.booklist.reduce( ( sumPages, currentBook ) => sumPages + currentBook.pages, 0 )
+            return this.$store.getters.getBooks.reduce( ( sumPages, currentBook ) => 
+            {
+                return sumPages + +currentBook.pages
+            }, 0 )
         }
-    },
-    components: {}
+    }
 })
 </script>
 

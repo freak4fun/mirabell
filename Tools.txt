@@ -9,6 +9,8 @@ https://github.com/vuejs/awesome-vue
 
 vuex store
 https://blog.pusher.com/getting-started-vuex-state-management-vuejs/
+https://vuex.vuejs.org/en/api.html
+https://scotch.io/tutorials/state-management-in-vue-getting-started-with-vue
 
 Layout
 http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page

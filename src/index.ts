@@ -17,11 +17,6 @@ let v = new Vue({
         <footer-component />
     </div>
     `,
-    data() { 
-        return {
-            // booklist: new Books()
-        }     
-    },
     store,
     components: {
         BooksComponent,

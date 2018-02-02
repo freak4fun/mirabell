@@ -7,6 +7,7 @@ export default class Books
     public constructor( booklist: Book[] = [] )
     {
         this._booklist = booklist
+        console.log( this._booklist )
     }
 
     public addBook( book: Book ): number
@@ -16,6 +17,13 @@ export default class Books
             return this._booklist.push( book )
         }
         return -1
+    }
+
+    public setBooks( booklist: [] )
+    {
+        for( let b of booklist ) {
+            this.addBook( new Book( b._isbn, b._title, b._authors, b._pages ) )
+        }
     }
 
     public getBooks(): Book[]
@@ -28,23 +36,14 @@ export default class Books
         return this._booklist.indexOf( book )    
     }    
     public indexOfIsbn( isbn: string ): number
-    {
-        const filteredBooks: Book[] = this._booklist.filter( ( currentBook ) => currentBook.isbn == isbn )
-        if( filteredBooks.length == 1 )
-        {
-            return this.indexOfBook( filteredBooks[ 0 ] )
-        }
-        return -1    
+    {   
+        return this._booklist.findIndex( ( element ) => element.isbn == isbn )
     }
 
     public getBookByIsbn( isbn: string ): Book | null
     {
-        const filteredBooks: Book[] = this._booklist.filter( ( currentBook ) => currentBook.isbn == isbn )
-        if( filteredBooks.length == 1 )
-        {
-            return filteredBooks[ 0 ]
-        }
-        return null
+        const index = this._booklist.findIndex( ( element ) => element.isbn == isbn )
+        return this.getBookByIndex( index )
     }
 
     public getBookByIndex( index: number ): Book | null
@@ -61,23 +60,13 @@ export default class Books
         return this._booklist.length
     }
 
-    public deleteBook( book: Book ): boolean
+    public deleteBookByIsbn( isbn: string ): boolean
     {
-        const index: number = this.indexOfBook( book )
+        const index: number = this.indexOfIsbn( isbn )
         if( index != -1 )
         {
             this._booklist.splice( index, 1 )
             return true
-        }
-        return false
-    }
-
-    public deleteBookByIsbn( isbn: string ): boolean
-    {
-        const book: Book = this.getBookByIsbn( isbn )
-        if( book != null )
-        {
-            return this.deleteBook( book )
         }
         return false
     }

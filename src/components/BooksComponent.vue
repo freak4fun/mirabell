@@ -2,12 +2,13 @@
 
 <template>
     <main>
-        <message-component :currentMessage="messageBox" :updateMessageBox="updateMessageBox" />
-        <new-book-component :booklist="booklist" :updateMessageBox="updateMessageBox" :showNewBook="showNewBook" />
-        <book-list-component :booklist="booklist" :updateShowNewBook="updateShowNewBook" :showNewBook="showNewBook" />
+        <message-component :updateMessageBox="updateMessageBox" :currentMessage="messageBox" />
+        <new-book-component :updateMessageBox="updateMessageBox" />
+        <book-list-component :updateMessageBox="updateMessageBox" />
         
         <button @click="saveToFile($event)">speichern</button>
         <button @click="loadFromFile($event)">laden</button>
+        <button @click="importBooks($event)">import</button>
         <br />
         <br />
         <button @click="test($event)">test</button>
@@ -23,57 +24,83 @@ import NewBookComponent from "./NewBookComponent.vue"
 import BookListComponent from "./BookListComponent.vue"
 import axios from "axios"
 
-import { IBook, addAuthor, removeAuthor, getBooksByIsbn, addIfNotInList } from '../SimpleBook'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+import Book from "../Book"
+import Books from "../Books"
+import book_import from '../book_import'
 
 export default Vue.extend({
     data() {
         return {
-            booklist: new Array<IBook>(),            
             fileName: 'booklist.json',
-            messageBox: { 'text': '', 'typ': 'none', 'show': false },
-            showNewBook: false
+            messageBox: { 'text': '', 'typ': 'none' }
         }
     },
     mounted() {
         this.loadFromFile()
     },
-    watch: {
-        booklist: function( newValue, oldValue ) {
-            console.log( 'watch booklist', newValue.length, oldValue.length  )
-        }
-    },
     methods: {
         updateMessageBox( status ) {
             this.messageBox = status
         },
-        updateShowNewBook( status ) {
-            this.showNewBook = status
-        },
-        saveToFile() 
+        buildForm()
         {
-            const fileData = JSON.stringify( this.booklist )
+            const fileData = JSON.stringify( this.$store.getters.getBooks )
+            console.log( fileData )
             const myFile = new File( [ fileData ], this.fileName, {
                 type: "text/json"
             })
             const formData = new FormData()
             formData.append( 'fileInput', myFile )
-
-            axios.post( 'http://localhost:3000/', formData )
+            return formData
+        },
+        saveToFile() 
+        {
+            axios.post( 'http://localhost:3000/', this.buildForm() )
             .then(response => {
                 console.log( "post_response", response )
             })
             .catch(e => {
                 console.log( 'post_errors', e )
             })
-
         },
+        loadFromFile()
+        { 
+            console.log( 'store', this.$store.getters.getBooks )
+            const fullDownloadPath = 'http://localhost:3000/uploads/' + this.fileName
+            axios.get( fullDownloadPath )
+            .then( ( response ) => {
+                this.$store.dispatch( 'ADD_BOOKS', response.data )
+                .then( 
+                    ( result ) => 
+                    { 
+                        this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', false )
+                        this.updateMessageBox( { 'text': result, 'typ': 'success' } ) 
+                    },
+                    ( error ) => 
+                    {
+                        this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', false )
+                        this.updateMessageBox( { 'text': error, 'typ': 'error' } )
+                    }
+                )    
+            });
+        }, 
+        importBooks()
+        {
+            console.group( 'import' )
+            console.log( 'import', book_import )
+            for( let b of book_import)
+                this.$store.dispatch( 'ADD_BOOK', new Book(b.isbn, b.title, [ b.authors[0] ], b.pages) )
+                                
+        },     
         test: function()
         {
             // https://www.eurobuch.de/
             // --- Bücher vestätigen !!!
 
-            let booksToAdd: IBook[]
-            booksToAdd = [
+            let booksToAdd = [
                 { isbn: '9783492311113', authors: [ 'Frederik T. Olsson' ], title: 'Das Netz',                          pages: 672 },
                 { isbn: '9783499291333', authors: [ 'Daniel Suarez' ],      title: 'Bios',                              pages: 544 },
                 { isbn: '9783644442917', authors: [ 'Daniel Suarez' ],      title: 'Darknet',                           pages: 480 },
@@ -123,33 +150,8 @@ export default Vue.extend({
                 
 //              { isbn: '', authors: [ '' ], title: '', pages:  }            
             ]   
-
-            for ( let currentBook of booksToAdd ) 
-            {
-                if( addIfNotInList( this.booklist, currentBook ) )
-                {
-                    console.log(  "'" + currentBook.isbn + "' wurde der Liste hinzugefügt.'" )
-                }
-                else
-                {
-                    console.log(  "'" + currentBook.isbn + "' ist schon in der Liste.'" ) 
-                }
-            }
-
-            console.log( this.booklist )     
-        },
-        loadFromFile()
-        { 
-            const fullDownloadPath = 'http://localhost:3000/uploads/' + this.fileName
-            axios.get( fullDownloadPath )
-            .then( ( response ) => {
-                this.booklist = response.data
-                console.log( this.booklist )
-            });
-        },
-        addBook( book ){},
-        deleteBook(){},
-        listBooks() {}
+  
+        }
     },
     components: {
         NewBookComponent,

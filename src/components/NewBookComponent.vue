@@ -1,7 +1,7 @@
 <!-- src/components/BookComponent.vue -->
 
 <template>
-    <div id="book-container" v-show="showNewBook"><!-- -->
+    <div id="book-container" v-show="this.isVisible"><!-- -->
         <table><!-- BookComponent -->
             <tr>
                 <td colspan="2" style="text-align: center;">
@@ -54,25 +54,29 @@ import Vue from "vue"
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-//import { IBook, addIfNotInList } from "../SimpleBook"
 import Book from "../Book"
 import Books from "../Books"
 
 export default Vue.extend({
-    props: [ 'booklist', 'updateMessageBox', 'showNewBook' ],
+    props: [ 'updateMessageBox' ],
     data() {
         return {
-            title: "",
-            pages: 0,
-            author: "",
-            isbn: "9783492311528",
-            bookInfo: ""
+            title: "Bios",
+            pages: 544,
+            author: "Daniel Suarez",
+            isbn: "9783499291333"
         }
     },
     watch: {
         isbn: function ( newValue, oldValue ) 
         {
             this.isbn = newValue.replace( /-/g, '' ).replace( / /g, '' )
+        }
+    },
+    computed: {
+        isVisible(): boolean
+        {            
+            return this.$store.getters.newBookIsVisible
         }
     },
     methods: {
@@ -82,55 +86,60 @@ export default Vue.extend({
             .then( 
                 ( result ) => 
                 { 
-                    this.updateMessageBox( { 'text': result, 'typ': 'success', 'show': true } ) 
-                    console.log( 'getBookByIsbn', this.$store.getters.getBookByIsbn( book.isbn  ).isbn )
+                    this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                    this.updateMessageBox( { 'text': result, 'typ': 'success' } ) 
+//                    console.log( 'getBookByIsbn', this.$store.getters.getBookByIsbn( book.isbn  ).isbn )
+                    console.log( 'getBooks', this.$store.getters.getBooks[0].isbn )
                 },
                 ( error ) => 
                 {
-                    this.updateMessageBox( { 'text': error, 'typ': 'error', 'show': true } )
+                    this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                    this.updateMessageBox( { 'text': error, 'typ': 'error' } )
                 }
             )
-
-        },
-        toggleShow()
-        {
-            
-            //this.addBook( { isbn: '9823942311113', authors: [ 'Frederik T. Olsson' ], title: 'Das Netz', pages: 672 } )
-            //this.addBook( { isbn: '9783644525313', authors: [ 'Daniel Suarez' ], title: 'Control', pages: 496 } )
-            //this.addBook( { isbn: '9783644442818', authors: [ 'Daniel Suarez' ], title: 'Daemon', pages: 640 } )
-
-            let b1: Book = new Book(
-                '9823942311113',
-                'Das Netz',
-                [ 'Frederik T. Olsson' ],
-                672    
-            )
-            
-            //console.log( "get_all_books", this.$store.getters.all_books )// get_book_isbn( '9783644525313' ) )
-            
-
-            //console.log( "get_all_books", this.$store.getters.book_by_isbn )// get_book_isbn( '9783644525313' ) )
-            
-            //console.log( "all_books", this.$store.getters.all_books )
-            //console.log( "store", this.$store )
-            
-            // this.updateMessageBox( { 'text': 'Oh, oh! Da ist wohl etwas schief gelaufen.', 'typ': 'error', 'show': true } )
-
         },
         saveBook()
         {
+            const validateIsbn = ( isbn ): boolean => {
+                let summe = isbn.split( '' ).reduce( ( sum, letter, index ) => 
+                {
+                    if( index < 12 )
+                    {
+                        if( index % 2 == 0 )
+                        {
+                            return sum += +letter * 1
+                        }
+                        else
+                        {
+                            return sum += +letter * 3
+                        }
+                    }
+                    return sum
+                }, 0 )
+                return ( 10 - ( ( summe % 10 ) % 10 ) ) === +isbn[ 12 ] 
+            }
+
             this.author = this.author.trim()
             this.title  = this.title.trim()
 
             if( this.isbn.length == 0 )
             {
-                this.updateMessageBox( { 'text': 'Bitte geben Sie eine ISBN ein.', 'typ': 'error', 'show': true } )
+                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                this.updateMessageBox( { 'text': 'Bitte geben Sie eine ISBN ein.', 'typ': 'error' } )
                 return
             }
             
             if( this.isbn.length != 13 )
             {
-                this.updateMessageBox( { 'text': 'Die ISBN muss genau 13 Zeichen lang sein!', 'typ': 'error', 'show': true } )
+                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                this.updateMessageBox( { 'text': 'Die ISBN muss genau 13 Zeichen lang sein!', 'typ': 'error' } )
+                return
+            }
+
+            if( !validateIsbn( this.isbn ) )
+            {
+                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                this.updateMessageBox( { 'text': 'Die Prüfziffern stimmen nicht überein!', 'typ': 'error' } )
                 return
             }
 
@@ -174,6 +183,18 @@ button.book-button {
     cursor: pointer;
     padding: 5px;
     width: 75px;
+    outline: none;
+    margin-top: 0.25em;
+}
+
+button.book-delete-button {
+    border-style: solid;
+    border-color: #493621;
+    border-width: 1px; 
+    background-color: #C4D4AF;
+    border-radius: 0 5px;
+    cursor: pointer;
+    padding: 5px;
     outline: none;
     margin-top: 0.25em;
 }
