@@ -16,7 +16,8 @@ const store = new Vuex.Store({
                 text: '',
                 typ: ''
             },
-            showNewBook: false
+            showNewBook: false,
+            isLoggedIn: false //!!localStorage.getItem(“token”)
         }
     },
     actions: {
@@ -59,10 +60,27 @@ const store = new Vuex.Store({
 		 // -----
         NEW_BOOK_VISIBLE: function( { commit }, isVisible: boolean ) {
             commit( 'SET_NEW_BOOK_VISIBLE', isVisible )
-		},
-		
+        },
+        /* begin login */
+        login( { commit } ) {
+            commit( 'LOGIN_MUTATION' ) // show spinner
+            localStorage.setItem( 'token', 'JWT' )
+        },
+        logout( { commit } ) {
+            localStorage.removeItem( 'token' )
+            commit( 'LOGOUT_MUTATION' )
+        }
+		/* ende login */
     },
     mutations: {
+        /* start Login */
+        LOGIN_MUTATION: (state) => {
+            state.settings.isLoggedIn = true
+        },
+        LOGOUT_MUTATION: (state) => {
+            state.settings.isLoggedIn = false
+        },
+        /* ende login */
         SET_BOOK: function( state, book )
         {
             state.books.addBook( book )
@@ -99,6 +117,9 @@ const store = new Vuex.Store({
         // -----
         newBookIsVisible: state => {
             return state.settings.showNewBook
+        },
+        isLoggedIn: state => {
+            return state.settings.isLoggedIn
         }
     }    
 })

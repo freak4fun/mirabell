@@ -22,7 +22,8 @@
                 <div class="author"> {{ value.author }} </div>
                 <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
                 <div class="pages"> {{ value.pages }} </div>
-                <button @click="deleteBook(value.isbn)" class="book-delete-button" >X</button>
+                
+                <span v-if="isLoggedIn" @click="deleteBook(value.isbn)"><i class="far fa-trash-alt fa-sm"></i></span>
             </div>
         </div> 
         <!-- Fuß-Zeile -->
@@ -103,7 +104,10 @@ export default Vue.extend({
             {
                 return sumPages + +currentBook.pages
             }, 0 )
-        }
+        },
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn
+        }    
     }
 })
 </script>
@@ -137,9 +141,11 @@ export default Vue.extend({
     }
     .even-row {
         background-color: #F8E1B4;
+        padding: 3px;
     }
     .odd-row {
         background-color: #F2D8A7;
+        padding: 3px;
     }
     .head-row {
         font-weight: bold;

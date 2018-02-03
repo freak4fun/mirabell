@@ -42,7 +42,8 @@
             </tr>
             <tr>
                 <td colspan="2" class="button-row">
-                    <button @click="saveBook()" class="book-button" >Speichern</button>
+                <!--    <span style="padding: 3px; border: 1px solid black; border-radius: 3px; margin-top: 1em;" @click="deleteBook(value.isbn)"><i class="far fa-save fa-lg"> Speichern</i></span> -->
+                <button @click="saveBook()" class="book-button" >Speichern</button>
                 </td>
             </tr>
         </table>
@@ -181,7 +182,6 @@ button.book-button {
     border-radius: 0 5px;
     cursor: pointer;
     padding: 5px;
-    width: 75px;
     outline: none;
     margin-top: 0.25em;
 }
