@@ -38,10 +38,10 @@ app.post('/', upload.single('fileInput'), (req, res) =>
   res.send("+++ Done! +++")
 });
 
-app.get('/downloads/:file(*)',(req, res) => {
+app.get('/uploads/:file(*)',(req, res) => {
   console.log("### ### ###", req.params.file);
   var file = req.params.file;
-  var fileLocation = path.join('./downloads',file);
+  var fileLocation = path.join('./uploads',file);
   console.log(fileLocation);
   res.download(fileLocation, file); 
 });

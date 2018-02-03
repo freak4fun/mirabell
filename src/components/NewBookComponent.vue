@@ -7,6 +7,7 @@
                 <td colspan="2" style="text-align: center;">
                     <div class="highlight">Add new Book</div>
                 </td>
+            </tr>
             <tr>
                 <td class="caption">
                     <label for="book_title">Title</label>
