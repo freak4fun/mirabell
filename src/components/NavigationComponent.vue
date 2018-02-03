@@ -23,10 +23,10 @@ export default Vue.extend({
     },
     methods: {
         logout() {
-            this.$store.dispatch('logout')
+            this.$store.dispatch( 'logout' )
         },
         login() {
-            this.$store.dispatch("login")
+            this.$store.dispatch( 'login' )
         }
     }    
 })
@@ -38,7 +38,7 @@ a {
     color: black;
     border: 1px solid black;
     border-radius: 3px;
-    padding: 1px 5px;
+    padding: 1px 13px;
     background-color: #C4D4AF;
 }
 nav {

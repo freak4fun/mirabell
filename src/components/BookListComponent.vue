@@ -2,7 +2,7 @@
 
 <template>
     <div id="book-table"><!-- Bücherliste -->
-        <div id="add-book" @click="toggleViewShowBook">New Book</div><!-- Buch hinzufügen ein-/ausblenden -->
+       <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
         <div id="book-table-top">
             Books Overview 
         </div>
@@ -105,7 +105,7 @@ export default Vue.extend({
                 return sumPages + +currentBook.pages
             }, 0 )
         },
-        isLoggedIn() {
+        isLoggedIn: function(): boolean {
             return this.$store.getters.isLoggedIn
         }    
     }
