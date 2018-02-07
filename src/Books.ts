@@ -19,11 +19,13 @@ export default class Books
         return -1
     }
 
-    public setBooks( booklist: [] )
+    public setBooks( booklist: Book[] )
     {
         for( let b of booklist ) {
-            this.addBook( new Book( b._isbn, b._title, b._authors, b._pages ) )
+            const currentBook = b as any
+            this.addBook( new Book( currentBook._isbn, currentBook._title, currentBook._authors, currentBook._pages ) )
         }
+        
     }
 
     public getBooks(): Book[]

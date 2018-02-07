@@ -87,7 +87,6 @@ const store = new Vuex.Store({
 		},
 		SET_BOOKS: function( state, books )
         {
-			console.log( 'books', books )
 			state.books.setBooks( books )
 		},
 		REMOVE_BOOK: function( state, isbn )

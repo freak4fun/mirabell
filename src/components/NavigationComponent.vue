@@ -17,7 +17,7 @@ Vue.use(Vuex)
 
 export default Vue.extend({
     computed: {
-        isLoggedIn() {
+        isLoggedIn(): boolean {
             return this.$store.getters.isLoggedIn
         }    
     },

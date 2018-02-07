@@ -69,6 +69,7 @@ export default Vue.extend({
             const fullDownloadPath = 'http://localhost:3000/uploads/' + this.fileName
             axios.get( fullDownloadPath )
             .then( ( response ) => {
+                console.log( 'books', response.data )
                 this.$store.dispatch( 'ADD_BOOKS', response.data )
                 .then( 
                     ( result ) => 
