@@ -9,7 +9,7 @@
         <div id="book-table-body">
             <!-- Überschriften -->
             <div class="head-row">
-                <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" class="{{key}}" :key="key.isbn" >
+                <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" class="{{key}}" :key="key[3]" >
                     {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
                 </div>
                 <!--
@@ -21,73 +21,14 @@
                 -->
             </div>
             <!-- einzelne Bücher -->
-            <div :key="entry.isbn" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
+            <div :key="entry[2]" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
                 <div v-for="(key, cellIndex) in columns" >
-                    <!-- -->
-                    {{entry[key]}}        
+                    <!-- key = 'title', 'isbn', ... -->
+                    <!-- entry[ 'isbn' ], entry[ key ] -->
+                    {{ getFormatedLine( entry, key )}}
                 </div>
-
-                <div class="number"> {{ index+1 | formatNumber }} </div>
-                <div class="title"> {{ value.title }} </div>
-                <div class="author"> {{ value.author }} </div>
-                <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
-                <div class="pages"> {{ value.pages }} </div>
                 
-                <span v-if="isLoggedIn" @click="deleteBook(value.isbn)"><i class="far fa-trash-alt fa-sm"></i></span>
-            </div>
-        </div> 
-
-
-         <tr v-for="entry in filteredData">                 
-                <td v-for="key in columns">
-                    {{entry[key]}}
-                </td>
-            </tr>
-    
-    
-    
-    
-         <table>
-        <thead>
-            <tr>
-                <th v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" :key="key.isbn" >
-                    {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="entry in filteredData">                 
-                <td v-for="key in columns">
-                    {{entry[key]}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    
-    <div id="book-table"><!-- Bücherliste -->
-       <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
-        <div id="book-table-top">
-            Books Overview 
-        </div>
-        <div id="book-table-body">
-            <!-- Überschriften -->
-            <div class="head-row">
-                <div class="number"> # </div>
-                <div class="title"> Title </div>
-                <div class="author"> Author </div>
-                <div class="isbn"> ISBN </div>    
-                <div class="pages"> Pages </div>
-            </div>
-            <!-- einzelne Bücher -->
-            <div :key="value.isbn" v-for="(value, index) in this.$store.getters.getBooks" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
-                <div class="number"> {{ index+1 | formatNumber }} </div>
-                <div class="title"> {{ value.title }} </div>
-                <div class="author"> {{ value.author }} </div>
-                <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
-                <div class="pages"> {{ value.pages }} </div>
-                
-                <span v-if="isLoggedIn" @click="deleteBook(value.isbn)"><i class="far fa-trash-alt fa-sm"></i></span>
+                <span v-if="isLoggedIn" @click="deleteBook(entry[2])"><i class="far fa-trash-alt fa-sm"></i></span>
             </div>
         </div> 
         <!-- Fuß-Zeile -->
@@ -112,7 +53,7 @@ export default Vue.extend({
     props: [ 'updateMessageBox' ],
     data: {
         return (
-            gridColumns: [ 'title', 'author', 'isbn', 'pages' ],
+            gridColumns: [ '_title', '_author', '_isbn', '_pages' ],
             searchQuery: '',
             gridData: [ 
                 {_title: "Bios", _authors: ["Daniel Suarez"] , _isbn: "9783499291333", _pages: 544},
@@ -148,6 +89,26 @@ export default Vue.extend({
     },
     methods: 
     {
+        getFormatedLine( entry, key )
+        {
+            // entry = dataLine
+            // key = feeld
+            switch( key )
+            {
+                case this.gridColumns[ 0 ]:
+                    return "<div class='number'> {{ index+1 | formatNumber }} </div>" 
+                case this.gridColumns[ 1 ]:
+                    return "<div class='title'> {{ entry[key] }} </div>" 
+                case this.gridColumns[ 2 ]:
+                    return "<div class='author'> {{ entry[key] }} </div>" 
+                case this.gridColumns[ 3 ]:
+                    return "<div class='isbn'> {{ entry[key] | formatIsbn }} </div>" 
+                case this.gridColumns[ 4 ]:
+                    return "<div class='pages'> {{  entry[key]  }} </div>" 
+                default:
+                    return "<div>{{ entry[key] }}</div>"
+            }
+        },
         toggleViewShowBook( )
         {
             const isNewBookVisible: boolean = this.$store.getters.newBookIsVisible
@@ -172,7 +133,7 @@ export default Vue.extend({
         }
     },
     computed: {
-        summeSeiten: function():number 
+        summeSeiten: function(): number 
         {
             return this.$store.getters.getBooks.reduce( ( sumPages, currentBook ) => 
             {
