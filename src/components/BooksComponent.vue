@@ -4,7 +4,7 @@
     <main>
         <message-component :updateMessageBox="updateMessageBox" :currentMessage="messageBox" />
         <new-book-component :updateMessageBox="updateMessageBox" />
-        <book-list-component :updateMessageBox="updateMessageBox" />
+        <book-list-page-component :updateMessageBox="updateMessageBox" />
         
         <button @click="saveToFile($event)">speichern</button>
         <button @click="loadFromFile($event)">laden</button>
@@ -18,7 +18,7 @@
 import Vue from "vue"
 import MessageComponent from "./MessageComponent.vue"
 import NewBookComponent from "./NewBookComponent.vue"
-import BookListComponent from "./BookListComponent.vue"
+import BookListPageComponent from "./BookListPageComponent.vue"
 import axios from "axios"
 
 import Vuex from 'vuex'
@@ -96,7 +96,7 @@ export default Vue.extend({
     },
     components: {
         NewBookComponent,
-        BookListComponent,
+        BookListPageComponent,
         MessageComponent
     }
 })

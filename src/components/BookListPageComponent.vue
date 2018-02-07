@@ -1,70 +1,6 @@
-<!-- src/components/BookListComponent.vue -->
+<!-- src/components/BookListPageComponent.vue -->
 
 <template>
-    <div id="book-table"><!-- Bücherliste -->
-       <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
-        <div id="book-table-top">
-            Books Overview 
-        </div>
-        <div id="book-table-body">
-            <!-- Überschriften -->
-            <div class="head-row">
-                <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" class="{{key}}" :key="key.isbn" >
-                    {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
-                </div>
-                <!--
-                <div class="number"> # </div>
-                <div class="title"> Title </div>
-                <div class="author"> Author </div>
-                <div class="isbn"> ISBN </div>    
-                <div class="pages"> Pages </div>
-                -->
-            </div>
-            <!-- einzelne Bücher -->
-            <div :key="entry.isbn" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
-                <div v-for="(key, cellIndex) in columns" >
-                    <!-- -->
-                    {{entry[key]}}        
-                </div>
-
-                <div class="number"> {{ index+1 | formatNumber }} </div>
-                <div class="title"> {{ value.title }} </div>
-                <div class="author"> {{ value.author }} </div>
-                <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
-                <div class="pages"> {{ value.pages }} </div>
-                
-                <span v-if="isLoggedIn" @click="deleteBook(value.isbn)"><i class="far fa-trash-alt fa-sm"></i></span>
-            </div>
-        </div> 
-
-
-         <tr v-for="entry in filteredData">                 
-                <td v-for="key in columns">
-                    {{entry[key]}}
-                </td>
-            </tr>
-    
-    
-    
-    
-         <table>
-        <thead>
-            <tr>
-                <th v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" :key="key.isbn" >
-                    {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="entry in filteredData">                 
-                <td v-for="key in columns">
-                    {{entry[key]}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    
     <div id="book-table"><!-- Bücherliste -->
        <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
         <div id="book-table-top">
@@ -110,16 +46,6 @@ Vue.use(Vuex)
 
 export default Vue.extend({
     props: [ 'updateMessageBox' ],
-    data: {
-        return (
-            gridColumns: [ 'title', 'author', 'isbn', 'pages' ],
-            searchQuery: '',
-            gridData: [ 
-                {_title: "Bios", _authors: ["Daniel Suarez"] , _isbn: "9783499291333", _pages: 544},
-                {_title: "Hals über Kopf", _authors: ["Kathy Reichs"], _isbn: "9783453436558", _pages: 432}
-            ]
-        )
-    },
     filters: {
         formatNumber: function( value: number ): string 
         {
