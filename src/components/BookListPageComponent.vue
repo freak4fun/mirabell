@@ -2,12 +2,13 @@
 
 <template>
     <div id="book-table"><!-- Bücherliste -->
-       <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
+        <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
         <div id="book-table-top">
             Books Overview 
-        </div>
-        <div id="book-table-body">
+        </div>            
+            <book-list-component :updateMessageBox="updateMessageBox" />
             <!-- Überschriften -->
+            <!--
             <div class="head-row">
                 <div class="number"> # </div>
                 <div class="title"> Title </div>
@@ -15,7 +16,9 @@
                 <div class="isbn"> ISBN </div>    
                 <div class="pages"> Pages </div>
             </div>
+            -->
             <!-- einzelne Bücher -->
+            <!--
             <div :key="value.isbn" v-for="(value, index) in this.$store.getters.getBooks" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
                 <div class="number"> {{ index+1 | formatNumber }} </div>
                 <div class="title"> {{ value.title }} </div>
@@ -25,7 +28,7 @@
                 
                 <span v-if="isLoggedIn" @click="deleteBook(value.isbn)"><i class="far fa-trash-alt fa-sm"></i></span>
             </div>
-        </div> 
+            -->
         <!-- Fuß-Zeile -->
         <div id="book-table-foot">
             <div class="number"></div> 
@@ -40,12 +43,21 @@
 <script lang="ts">
 // https://dribbble.com/shots/785047-Work-Project
 import Vue from "vue"
+import BookListComponent from "./BookListComponent.vue"
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default Vue.extend({
     props: [ 'updateMessageBox' ],
+    data() {
+        return {
+            x: [ 
+                {title: "Bios", authors: ["Daniel Suarez"] , isbn: "9783499291333", pages: 544},
+                {title: "Hals über Kopf", authors: ["Kathy Reichs"], isbn: "9783453436558", pages: 432}
+            ]
+        }
+    },
     filters: {
         formatNumber: function( value: number ): string 
         {
@@ -108,6 +120,9 @@ export default Vue.extend({
         isLoggedIn: function(): boolean {
             return this.$store.getters.isLoggedIn
         }    
+    },
+    components: {
+        BookListComponent
     }
 })
 </script>

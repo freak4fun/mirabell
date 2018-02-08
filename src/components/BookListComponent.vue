@@ -1,65 +1,57 @@
 <!-- src/components/BookListComponent.vue -->
 
 <template>
-    <div id="book-table"><!-- Bücherliste -->
-       <div id="add-book" v-if="isLoggedIn" @click="toggleViewShowBook"><i class="far fa-plus-square fa-2x"></i></div><!-- Buch hinzufügen ein-/ausblenden -->
-        <div id="book-table-top">
-            Books Overview 
-        </div>
-        <div id="book-table-body">
-            <!-- Überschriften -->
-            <div class="head-row">
-                <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" class="{{key}}" :key="key[3]" >
-                    {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
-                </div>
-                <!--
-                <div class="number"> # </div>
-                <div class="title"> Title </div>
-                <div class="author"> Author </div>
-                <div class="isbn"> ISBN </div>    
-                <div class="pages"> Pages </div>
-                -->
+    <div id="book-table-body">
+        <!-- Überschriften -->
+        <div class="head-row">
+            <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key, key: true }" :key="key" >
+                <div :class="tc( key )"> {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span> </div>
             </div>
-            <!-- einzelne Bücher -->
-            <div :key="entry[2]" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
-                <div v-for="(key, cellIndex) in columns" >
-                    <!-- key = 'title', 'isbn', ... -->
-                    <!-- entry[ 'isbn' ], entry[ key ] -->
-                    {{ getFormatedLine( entry, key )}}
-                </div>
-                
-                <span v-if="isLoggedIn" @click="deleteBook(entry[2])"><i class="far fa-trash-alt fa-sm"></i></span>
-            </div>
-        </div> 
-        <!-- Fuß-Zeile -->
-        <div id="book-table-foot">
-            <div class="number"></div> 
-            <div class="title"></div>  
-            <div class="author"></div>  
-            <div class="isbn"><strong>Sum of Pages:</strong> </div>  
-            <div class="pages"><strong>{{summeSeiten}}</strong> </div>
+            <!--
+            <div class="number"> # </div>
+            <div class="title"> Title </div>
+            <div class="author"> Author </div>
+            <div class="isbn"> ISBN </div>    
+            <div class="pages"> Pages </div>
+            -->
         </div>
-    </div>  
+        <!-- einzelne Bücher -->
+        <div :key="entry[columns[2]]" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
+            <div class='number'> {{ index+1 | formatNumber }} </div> 
+            <div class='title'> {{ entry[columns[0]] }} </div> 
+            <div class='author'> {{ entry[columns[1]] }} </div> 
+            <div class='isbn'> {{ entry[columns[2]] | formatIsbn }} </div>
+            <div class='pages'> {{  entry[columns[3]]  }} </div> 
+            
+            <span v-if="isLoggedIn" @click="deleteBook(entry[columns[2]])"><i class="far fa-trash-alt fa-sm"></i></span>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
 // https://dribbble.com/shots/785047-Work-Project
 import Vue from "vue"
 
+import Book from "../Book"
+import Books from "../Books"
+
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default Vue.extend({
     props: [ 'updateMessageBox' ],
-    data: {
-        return (
-            gridColumns: [ '_title', '_author', '_isbn', '_pages' ],
-            searchQuery: '',
-            gridData: [ 
-                {_title: "Bios", _authors: ["Daniel Suarez"] , _isbn: "9783499291333", _pages: 544},
-                {_title: "Hals über Kopf", _authors: ["Kathy Reichs"], _isbn: "9783453436558", _pages: 432}
-            ]
-        )
+    data: function() {
+        let gridColumns = [ '_title', '_authors', '_isbn', '_pages' ]
+        var sortOrders = {}
+        gridColumns.forEach(function (key) {
+            sortOrders[key] = 1
+        })
+        return {
+            columns: gridColumns,
+            filterKey: '',
+            sortKey: '',
+            sortOrders: sortOrders
+        }
     },
     filters: {
         formatNumber: function( value: number ): string 
@@ -85,29 +77,19 @@ export default Vue.extend({
             isbnParts.push( isbn.substring( 12, 13 ) )
 
             return isbnParts.join( '-' )
+        },
+        capitalize: function( value: string )
+        {
+            return value.charAt(1).toUpperCase() + value.slice(2)
         }
     },
     methods: 
     {
-        getFormatedLine( entry, key )
+        tc: function( value: string )
         {
-            // entry = dataLine
-            // key = feeld
-            switch( key )
-            {
-                case this.gridColumns[ 0 ]:
-                    return "<div class='number'> {{ index+1 | formatNumber }} </div>" 
-                case this.gridColumns[ 1 ]:
-                    return "<div class='title'> {{ entry[key] }} </div>" 
-                case this.gridColumns[ 2 ]:
-                    return "<div class='author'> {{ entry[key] }} </div>" 
-                case this.gridColumns[ 3 ]:
-                    return "<div class='isbn'> {{ entry[key] | formatIsbn }} </div>" 
-                case this.gridColumns[ 4 ]:
-                    return "<div class='pages'> {{  entry[key]  }} </div>" 
-                default:
-                    return "<div>{{ entry[key] }}</div>"
-            }
+            let v = value.substring(1).toLowerCase()
+            console.log( 'v', v)   
+            return v  
         },
         toggleViewShowBook( )
         {
@@ -116,7 +98,6 @@ export default Vue.extend({
         },
         deleteBook( isbn )
         {
-            console.log( isbn )
             this.$store.dispatch( 'DELETE_BOOK', isbn )
             .then( 
                 ( result ) => 
@@ -130,7 +111,11 @@ export default Vue.extend({
                     this.updateMessageBox( { 'text': error, 'typ': 'error' } )
                 }
             )
-        }
+        },
+        sortBy: function (key) {
+            this.sortKey = key
+            this.sortOrders[key] = this.sortOrders[key] * -1
+        }   
     },
     computed: {
         summeSeiten: function(): number 
@@ -142,7 +127,52 @@ export default Vue.extend({
         },
         isLoggedIn: function(): boolean {
             return this.$store.getters.isLoggedIn
-        }    
+        },
+        filteredData: function () 
+        {
+            var localData = this.$store.getters.getBooks
+            console.log( "length", localData.length )
+            if( localData.length > 0 )
+            {
+                var sortKey = this.sortKey
+                var filterKey = this.filterKey && this.filterKey.toLowerCase()
+                var order = this.sortOrders[sortKey] || 1
+                
+                if (filterKey) 
+                {
+                    localData = this.$store.getters.getBooks.filter(function (row) 
+                    {
+                        return Object.keys(row).some(function (key) 
+                        {
+                            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                        })
+                    })
+                }
+                if (sortKey) 
+                {
+                    localData = this.$store.getters.getBooks.slice().sort(function (a, b) 
+                    {
+                        a = a[sortKey]
+                        b = b[sortKey]
+                        return (a === b ? 0 : a > b ? 1 : -1) * order
+                    })
+                }
+                return localData
+            }
+
+            /*
+            console.log( "length", this.$store.getters.getBooks.length )
+            if( this.$store.getters.getBooks[0] )
+            {
+                let iterator = this.$store.getters.getBooks.keys()
+                console.log( "xxx", this.$store.getters.getBooks[0]._isbn )
+                for (let key of iterator) {
+                    console.log(key); // expected output: 0 1 2
+                }
+            }
+            */
+            return []
+        }
     }
 })
 </script>
@@ -195,7 +225,7 @@ export default Vue.extend({
     .odd-row:hover, .even-row:hover {
         background-color: #BCC747;
     }
-    .number, .author, .title, .isbn, .pages {
+    .number, .authors, .title, .isbn, .pages {
         display: inline-block;
     }
     .number {
@@ -208,7 +238,7 @@ export default Vue.extend({
         min-width: 480px;
         text-align: left;
     }
-    .author {
+    .authors {
         min-width: 200px;
         text-align: left;
     }
