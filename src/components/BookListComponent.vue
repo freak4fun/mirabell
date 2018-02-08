@@ -4,8 +4,8 @@
     <div id="book-table-body">
         <!-- Überschriften -->
         <div class="head-row">
-            <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key, key: true }" :key="key" >
-                <div :class="tc( key )"> {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span> </div>
+            <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" :key="key" ><!-- :class="tc( key )" --> 
+                {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
             </div>
             <!--
             <div class="number"> # </div>
@@ -88,7 +88,7 @@ export default Vue.extend({
         tc: function( value: string )
         {
             let v = value.substring(1).toLowerCase()
-            console.log( 'v', v)   
+            console.log( 'v', v, value )   
             return v  
         },
         toggleViewShowBook( )
