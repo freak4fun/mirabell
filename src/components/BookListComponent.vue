@@ -4,33 +4,34 @@
     <div id="book-table-body">
         <!-- Überschriften -->
         <div class="head-row">
-            <div v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }" :key="key" ><!-- :class="tc( key )" --> 
-                {{ key | capitalize }} <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
-            </div>
-            <!--
             <div class="number"> # </div>
-            <div class="title"> Title </div>
-            <div class="author"> Author </div>
-            <div class="isbn"> ISBN </div>    
-            <div class="pages"> Pages </div>
-            -->
+            <div v-for="key in columns" @click="sortBy(key)" :class="getClass( key )" :key="key" > 
+                {{ key | capitalize }} <span :class="sortOrders[key] > 0 ? 'asc' : 'dsc'" ></span>
+            </div>
         </div>
         <!-- einzelne Bücher -->
         <div :key="entry[columns[2]]" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
             <div class='number'> {{ index+1 | formatNumber }} </div> 
             <div class='title'> {{ entry[columns[0]] }} </div> 
-            <div class='author'> {{ entry[columns[1]] }} </div> 
+            <div class='author'> {{ entry[columns[1]] | author }} </div> 
             <div class='isbn'> {{ entry[columns[2]] | formatIsbn }} </div>
             <div class='pages'> {{  entry[columns[3]]  }} </div> 
             
-            <span v-if="isLoggedIn" @click="deleteBook(entry[columns[2]])"><i class="far fa-trash-alt fa-sm"></i></span>
+            <span v-if="isLoggedIn" @click="test()" asdf="deleteBook(entry[columns[2]])" ><i class="far fa-trash-alt fa-sm"></i></span>
         </div>
+        <modal-component :showModal=showModal :close=close>
+        <h3 slot="header">custom header</h3>
+        <h3 slot="body">custom body</h3>
+        <h3 slot="footer">custom footer</h3>
+        </modal-component>
     </div>
+
 </template>
 
 <script lang="ts">
 // https://dribbble.com/shots/785047-Work-Project
 import Vue from "vue"
+import ModalComponent from "./ModalComponent.vue"
 
 import Book from "../Book"
 import Books from "../Books"
@@ -50,7 +51,8 @@ export default Vue.extend({
             columns: gridColumns,
             filterKey: '',
             sortKey: '',
-            sortOrders: sortOrders
+            sortOrders: sortOrders,
+            showModal: true
         }
     },
     filters: {
@@ -66,6 +68,10 @@ export default Vue.extend({
                 default:
                     return pages
             }
+        },
+        author: function( value: string )
+        {
+            return value[ 0 ]   
         },
         formatIsbn: function( isbn: string ): string
         {
@@ -84,12 +90,15 @@ export default Vue.extend({
         }
     },
     methods: 
-    {
-        tc: function( value: string )
-        {
-            let v = value.substring(1).toLowerCase()
-            console.log( 'v', v, value )   
-            return v  
+    {   
+        close: function(){
+            this.showModal = false
+        },
+        test: function(){
+            
+            console.log( "modal", this.showModal ) 
+            this.showModal = !this.showModal
+
         },
         toggleViewShowBook( )
         {
@@ -115,7 +124,18 @@ export default Vue.extend({
         sortBy: function (key) {
             this.sortKey = key
             this.sortOrders[key] = this.sortOrders[key] * -1
-        }   
+        },   
+        getClass: function( key: string )
+        {
+            console.log( "cssClass", key )
+            return {
+                active: this.sortKey == key,
+                title: key == '_title',
+                authors: key == '_authors',
+                isbn: key == '_isbn',
+                pages: key == '_pages'
+            }
+        }
     },
     computed: {
         summeSeiten: function(): number 
@@ -173,11 +193,31 @@ export default Vue.extend({
             */
             return []
         }
+    },
+    components: {
+        ModalComponent
     }
 })
 </script>
 
 <style>
+.arrow {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+}
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #fff;
+}
+.arrow.dsc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+}
    #book-table-top {
         background-color: #BFAF80;
         color: #493621;
@@ -198,7 +238,7 @@ export default Vue.extend({
         text-align: center;
         margin: auto;
         margin-bottom: 0.5em;
-        max-width: 60%;
+        max-width: 90%;
         position: relative;
     }
     .active-link {
