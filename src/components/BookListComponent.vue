@@ -179,17 +179,6 @@ export default Vue.extend({
                 }
             }
 
-            /*
-            console.log( "length", this.$store.getters.getBooks.length )
-            if( this.$store.getters.getBooks[0] )
-            {
-                let iterator = this.$store.getters.getBooks.keys()
-                console.log( "xxx", this.$store.getters.getBooks[0]._isbn )
-                for (let key of iterator) {
-                    console.log(key); // expected output: 0 1 2
-                }
-            }
-            */
             return localData
         }
     },
