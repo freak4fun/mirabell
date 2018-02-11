@@ -150,7 +150,7 @@ export default Vue.extend({
         },
         filteredData: function () 
         {
-            var localData = this.$store.getters.getBooks
+            var localData = []
             console.log( "length", localData.length )
             if( localData.length > 0 )
             {
@@ -177,7 +177,6 @@ export default Vue.extend({
                         return (a === b ? 0 : a > b ? 1 : -1) * order
                     })
                 }
-                return localData
             }
 
             /*
@@ -191,7 +190,7 @@ export default Vue.extend({
                 }
             }
             */
-            return []
+            return localData
         }
     },
     components: {
