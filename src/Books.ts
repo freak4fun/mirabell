@@ -7,7 +7,7 @@ export default class Books
     public constructor( booklist: Book[] = [] )
     {
         this._booklist = booklist
-        console.log( this._booklist )
+        //console.log( this._booklist )
     }
 
     public addBook( book: Book ): number

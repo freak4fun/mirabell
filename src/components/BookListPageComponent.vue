@@ -7,28 +7,6 @@
             Books Overview 
         </div>            
             <book-list-component :updateMessageBox="updateMessageBox" />
-            <!-- Überschriften -->
-            <!--
-            <div class="head-row">
-                <div class="number"> # </div>
-                <div class="title"> Title </div>
-                <div class="author"> Author </div>
-                <div class="isbn"> ISBN </div>    
-                <div class="pages"> Pages </div>
-            </div>
-            -->
-            <!-- einzelne Bücher -->
-            <!--
-            <div :key="value.isbn" v-for="(value, index) in this.$store.getters.getBooks" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
-                <div class="number"> {{ index+1 | formatNumber }} </div>
-                <div class="title"> {{ value.title }} </div>
-                <div class="author"> {{ value.author }} </div>
-                <div class="isbn"> {{ value.isbn | formatIsbn }} </div>    
-                <div class="pages"> {{ value.pages }} </div>
-                
-                <span v-if="isLoggedIn" @click="deleteBook(value.isbn)"><i class="far fa-trash-alt fa-sm"></i></span>
-            </div>
-            -->
         <!-- Fuß-Zeile -->
         <div id="book-table-foot">
             <div class="number"></div> 
@@ -211,8 +189,5 @@ export default Vue.extend({
         border-radius: 0 5px;
         background-color: #C4D4AF;
         cursor: pointer;
-    }
-    .active {
-        background-color: white !important;
     }
 </style>

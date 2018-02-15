@@ -6,10 +6,11 @@
         <div class="head-row">
             <div class="number"> # </div>
             <div v-for="key in columns" @click="sortBy(key)" :class="getClass( key )" :key="key" > 
-                {{ key | capitalize }} <span :class="sortOrders[key] > 0 ? 'asc' : 'dsc'" ></span>
+                {{ key | capitalize }} <span :class="sortOrders[key] > 0 ? 'arrow asc' : 'arrow dsc'" ></span>
             </div>
         </div>
         <!-- einzelne Bücher -->
+        
         <div :key="entry[columns[2]]" v-for="(entry, index) in filteredData" :class="{'even-row': index % 2, 'odd-row': !(index % 2)}">
             <div class='number'> {{ index+1 | formatNumber }} </div> 
             <div class='title'> {{ entry[columns[0]] }} </div> 
@@ -19,6 +20,7 @@
             
             <span v-if="isLoggedIn" @click="test()" asdf="deleteBook(entry[columns[2]])" ><i class="far fa-trash-alt fa-sm"></i></span>
         </div>
+        
         <modal-component :showModal=showModal :close=close>
         <h3 slot="header">custom header</h3>
         <h3 slot="body">custom body</h3>
@@ -127,7 +129,7 @@ export default Vue.extend({
         },   
         getClass: function( key: string )
         {
-            console.log( "cssClass", key )
+            //console.log( "cssClass", key )
             return {
                 active: this.sortKey == key,
                 title: key == '_title',
@@ -151,8 +153,8 @@ export default Vue.extend({
         filteredData: function () 
         {
             var localData = []
-            console.log( "length", localData.length )
-            if( localData.length > 0 )
+            //console.log( "length", this.$store.getters.getBooks.length )
+            if( this.$store.getters.getBooks.length > 0 )
             {
                 var sortKey = this.sortKey
                 var filterKey = this.filterKey && this.filterKey.toLowerCase()
@@ -168,17 +170,21 @@ export default Vue.extend({
                         })
                     })
                 }
+                else
+                {
+                    localData = this.$store.getters.getBooks
+                }
+                
                 if (sortKey) 
                 {
-                    localData = this.$store.getters.getBooks.slice().sort(function (a, b) 
+                    localData = localData.slice().sort(function (a, b) 
                     {
                         a = a[sortKey]
                         b = b[sortKey]
                         return (a === b ? 0 : a > b ? 1 : -1) * order
                     })
-                }
+                }          
             }
-
             return localData
         }
     },
@@ -199,12 +205,12 @@ export default Vue.extend({
 .arrow.asc {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
+  border-bottom: 4px solid black;
 }
 .arrow.dsc {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
+  border-top: 4px solid black;
 }
    #book-table-top {
         background-color: #BFAF80;
@@ -289,8 +295,5 @@ export default Vue.extend({
         border-radius: 0 5px;
         background-color: #C4D4AF;
         cursor: pointer;
-    }
-    .active {
-        background-color: white !important;
     }
 </style>

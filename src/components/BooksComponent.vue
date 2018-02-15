@@ -65,11 +65,11 @@ export default Vue.extend({
         },
         loadFromFile()
         { 
-            console.log( 'store', this.$store.getters.getBooks )
+            //console.log( 'store', this.$store.getters.getBooks )
             const fullDownloadPath = 'http://localhost:3000/uploads/' + this.fileName
             axios.get( fullDownloadPath )
             .then( ( response ) => {
-                console.log( 'books', response.data )
+                //console.log( 'books', response.data )
                 this.$store.dispatch( 'ADD_BOOKS', response.data )
                 .then( 
                     ( result ) => 
