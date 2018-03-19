@@ -15,6 +15,9 @@ import Vue from "vue"
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import crypto  from "crypto-js"
+import axios from "axios"
+
 export default Vue.extend({
     computed: {
         isLoggedIn(): boolean {
@@ -27,6 +30,13 @@ export default Vue.extend({
         },
         login() {
             this.$store.dispatch( 'login' )
+            var token = crypto.MD5( Date.now() ).toString()
+            
+            axios.get( 'http://localhost:3000/auth/' + crypto.MD5( 'secret' ).toString() )
+            .then( ( response ) => {
+                
+                console.log( 'auth', response.data, crypto.MD5( 'secret' ).toString() )                    
+            })
         }
     }    
 })

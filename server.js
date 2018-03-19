@@ -46,13 +46,9 @@ app.get('/uploads/:file(*)',(req, res) => {
   res.download(fileLocation, file); 
 });
 
-app.get('/uploads/:file(*)',(req, res) => {
-  console.log("### ### ###", req.params.file);
-  var file = req.params.file;
-  var fileLocation = path.join('./uploads',file);
-  console.log(fileLocation);
-  res.download(fileLocation, file); 
-});
+app.get('/auth/:pwd(*)',(req, res) => {
+  res.send( req.params.pwd === '5ebe2294ecd0e0f08eab7690d2a6ee69' )
+})
 
 app.get('/', function (req, res) {
   //console.log( 'dirname ' + path.join(__dirname) );

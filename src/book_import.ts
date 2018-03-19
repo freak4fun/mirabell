@@ -96,12 +96,12 @@ const book_import = [
     { isbn: '9783404171699', authors: [ 'M. Sean Coleman' ],    title: 'Netwars - Der Code',                pages: 480 },
     { isbn: '9783492264396', authors: [ 'Jenk Saborowski' ],    title: 'Operation Blackmail',               pages: 382 },
 //    { isbn: '978-3453185821', authors: [ 'Herbert Asbury' ],       title: 'Gangs of New York',            pages: ??? },
-    { isbn: '978-3453082304', authors: [ 'Douglas Adams' ],     title: 'Einmal Rupert und zurück',          pages: 272 },
-    { isbn: '978-3596139842', authors: [ 'Clifford Stoll' ],    title: 'Kuckucksei',                        pages: 457 },
-    { isbn: '978-3404150885', authors: [ 'Rogelio J. Pineiro' ],    title: 'De@dline',                      pages: 445 },
-    { isbn: '978-3404259205', authors: [ 'Rogelio J. Pineiro' ],    title: 'CH@OS',                         pages: 445 },
-    { isbn: '9783404148806', authors: [ 'Rogelio J. Pineiro' ],     title: 'P@nik',                         pages: 383 },
-    { isbn: '978-3404152681', authors: [ 'Rogelio J. Pineiro' ],    title: 'Firew@ll',                      pages: 650 }
+    { isbn: '9783453082304', authors: [ 'Douglas Adams' ],     title: 'Einmal Rupert und zurück',           pages: 272 },
+    { isbn: '9783596139842', authors: [ 'Clifford Stoll' ],    title: 'Kuckucksei',                         pages: 457 },
+    { isbn: '9783404150885', authors: [ 'Rogelio J. Pineiro' ], title: 'De@dline',                          pages: 445 },
+    { isbn: '9783404259205', authors: [ 'Rogelio J. Pineiro' ], title: 'CH@OS',                             pages: 445 },
+    { isbn: '9783404148806', authors: [ 'Rogelio J. Pineiro' ], title: 'P@nik',                             pages: 383 },
+    { isbn: '9783404152681', authors: [ 'Rogelio J. Pineiro' ], title: 'Firew@ll',                          pages: 650 }
     
     // Vorlage
 //    { isbn: '', authors: [ '' ],       title: '',                        pages:  },

@@ -22,9 +22,11 @@
         </div>
         
         <modal-component :showModal=showModal :close=close>
-        <h3 slot="header">custom header</h3>
-        <h3 slot="body">custom body</h3>
-        <h3 slot="footer">custom footer</h3>
+        <h3 slot="header">Login</h3>
+        <h3 slot="body">
+            Passwort: <input type="password" v-model="pwd" />
+        </h3>
+        <h3 slot="footer"></h3>
         </modal-component>
     </div>
 
@@ -54,7 +56,8 @@ export default Vue.extend({
             filterKey: '',
             sortKey: '',
             sortOrders: sortOrders,
-            showModal: true
+            showModal: true,
+            pwd: ''
         }
     },
     filters: {
@@ -95,6 +98,7 @@ export default Vue.extend({
     {   
         close: function(){
             this.showModal = false
+            alert( this.pwd )
         },
         test: function(){
             
@@ -296,4 +300,22 @@ export default Vue.extend({
         background-color: #C4D4AF;
         cursor: pointer;
     }
+
+.modal-header h3 {
+  background-color: white !important;
+}
+
+.modal-body {
+  background-color: white !important;
+}
+
+.modal-buttons {
+  background-color: white !important;
+}
+
+.modal-default-button {
+  background-color: gainsboro !important;
+}
+
+
 </style>
