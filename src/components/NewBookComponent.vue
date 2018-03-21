@@ -54,6 +54,7 @@
 import Vue from "vue"
 
 import Vuex from 'vuex'
+import { mapState } from 'vuex'
 Vue.use(Vuex)
 
 import Book from "../Book"
@@ -76,9 +77,20 @@ export default Vue.extend({
         }
     },
     computed: {
-        isVisible(): boolean
-        {            
-            return this.$store.getters.newBookIsVisible
+        isVisible: {
+            get (): boolean { 
+                return this.$store.getters.newBookIsVisible 
+            }
+        },
+        showMessageBox: 
+        {
+            get (): boolean {
+                return this.$store.getters.showMessageBox.status 
+            },
+            set ( value: boolean )
+            {
+                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', value )
+            }
         }
     },
     methods: {
@@ -88,12 +100,12 @@ export default Vue.extend({
             .then( 
                 ( result ) => 
                 { 
-                    this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                    this.showMessageBox = true
                     this.updateMessageBox( { 'text': result, 'typ': 'success' } ) 
                 },
                 ( error ) => 
                 {
-                    this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                    this.showMessageBox = true
                     this.updateMessageBox( { 'text': error, 'typ': 'error' } )
                 }
             )
@@ -124,21 +136,21 @@ export default Vue.extend({
 
             if( this.isbn.length == 0 )
             {
-                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                this.showMessageBox = true
                 this.updateMessageBox( { 'text': 'Bitte geben Sie eine ISBN ein.', 'typ': 'error' } )
                 return
             }
             
             if( this.isbn.length != 13 )
             {
-                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                this.showMessageBox = true
                 this.updateMessageBox( { 'text': 'Die ISBN muss genau 13 Zeichen lang sein!', 'typ': 'error' } )
                 return
             }
 
             if( !validateIsbn( this.isbn ) )
             {
-                this.$store.dispatch( 'MESSAGE_BOX_VISIBLE', true )
+                this.showMessageBox = true
                 this.updateMessageBox( { 'text': 'Die Prüfziffern stimmen nicht überein!', 'typ': 'error' } )
                 return
             }

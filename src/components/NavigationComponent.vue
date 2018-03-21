@@ -1,12 +1,32 @@
 <!-- src/components/NavigationComponent.vue -->
 
 <template>
+    <span>
     <nav>
          <p>
             Home | New Book | Books Overview | <a href="#" v-if="isLoggedIn" @click="logout"><i class="fas fa-sign-out-alt"></i></a>
             <a href="#" v-if="!isLoggedIn" @click="login"><i class="fas fa-sign-in-alt"></i></a>
         </p>
-    </nav>    
+    </nav>   
+
+    <modal-component :showModal=showModal :close=close>
+        <h3 slot="header">Login</h3>
+        <h3 slot="body">
+            Passwort: <input type="password" v-model="pwd" />
+        </h3>
+        <h3 slot="buttons">
+            <button class="modal-default-button" @click="close()">
+                Abbrechen
+            </button>
+
+            <button class="modal-default-button" @click="login()">
+                OK
+            </button>
+        </h3>
+        <h3 slot="footer"></h3>
+    </modal-component>
+    </span>
+
 </template>
 
 <script lang="ts">
@@ -15,30 +35,50 @@ import Vue from "vue"
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import ModalComponent from "./ModalComponent.vue"
 import crypto  from "crypto-js"
 import axios from "axios"
 
 export default Vue.extend({
+     data:function(){
+        return {
+            showModal: false,
+            pwd: ''
+        }
+     },
     computed: {
         isLoggedIn(): boolean {
             return this.$store.getters.isLoggedIn
         }    
     },
     methods: {
+        close: function(){
+            this.showModal = false
+        },
         logout() {
             this.$store.dispatch( 'logout' )
         },
         login() {
-            this.$store.dispatch( 'login' )
-            var token = crypto.MD5( Date.now() ).toString()
+            //var token = crypto.MD5( this.pwd ).toString()
             
-            axios.get( 'http://localhost:3000/auth/' + crypto.MD5( 'secret' ).toString() )
+            this.showModal = true
+
+            axios.get( 'http://localhost:3000/auth/' + crypto.MD5( this.pwd ).toString() )
             .then( ( response ) => {
-                
-                console.log( 'auth', response.data, crypto.MD5( 'secret' ).toString() )                    
+                console.log( 'auth', response.data, crypto.MD5( 'secret' ).toString() )  
+                if( response.data === true )
+                {
+                    this.$store.dispatch( 'login' )
+                    this.pwd = ''
+                    this.close()
+                }
+                //console.log( 'auth', response.data, crypto.MD5( 'secret' ).toString() )                    
             })
         }
-    }    
+    },
+    components: {
+        ModalComponent
+    }   
 })
 </script>
 

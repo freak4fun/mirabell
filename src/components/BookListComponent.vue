@@ -56,7 +56,7 @@ export default Vue.extend({
             filterKey: '',
             sortKey: '',
             sortOrders: sortOrders,
-            showModal: true,
+            showModal: false,
             pwd: ''
         }
     },
