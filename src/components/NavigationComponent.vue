@@ -18,7 +18,6 @@
             <button class="modal-default-button" @click="close()">
                 Abbrechen
             </button>
-
             <button class="modal-default-button" @click="login()">
                 OK
             </button>
@@ -105,5 +104,11 @@ nav {
 }
 .active-link {
     color: #F8E1B4;
+}
+.modal-default-button {
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    min-width: 50px;
 }
 </style>

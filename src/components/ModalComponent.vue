@@ -19,12 +19,13 @@
               default body
             </slot>
           </div>
-
+<!--
           <div class="modal-footer">
             <slot name="footer">
               default footer
             </slot>
           </div>
+-->
           <div class="modal-buttons">
             <slot name="buttons">
               <button class="modal-default-button" @click="close()">
@@ -69,9 +70,10 @@ export default Vue.extend({
 .modal-container {
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 10px 20px;
   background-color: #fff;
-  border-radius: 2px;
+  color: black;
+  border-radius: 3px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
@@ -84,13 +86,13 @@ export default Vue.extend({
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 5px 0;
   background-color: lime;
 }
 
 .modal-buttons {
-  padding: 20px;
-  margin: 20px 0;
+  padding: 3px;
+  margin: 5px 0;
   background-color: lime;
 }
 

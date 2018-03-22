@@ -64,10 +64,10 @@ export default Vue.extend({
     props: [ 'updateMessageBox' ],
     data() {
         return {
-            title: "",
-            pages: 0,
-            author: "",
-            isbn: ""
+            title: "Ready Player One",
+            pages: 544,
+            author: "Ernest Cline",
+            isbn: "9783596296590"
         }
     },
     watch: {
@@ -128,7 +128,8 @@ export default Vue.extend({
                     }
                     return sum
                 }, 0 )
-                return ( 10 - ( ( summe % 10 ) % 10 ) ) === +isbn[ 12 ] 
+                //console.log( summe, ( summe % 10 ), ( ( summe % 10 ) % 10 ), 10 - ( ( summe % 10 ) % 10 ), +isbn[12] )
+                return ( ( summe % 10 ) % 10 ) === +isbn[ 12 ] 
             }
 
             this.author = this.author.trim()

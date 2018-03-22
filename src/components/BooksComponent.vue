@@ -3,7 +3,10 @@
 <template>
     <main>
         <message-component :updateMessageBox="updateMessageBox" :currentMessage="messageBox" />
-        <new-book-component :updateMessageBox="updateMessageBox" />
+        <new-book-component :updateMessageBox="updateMessageBox" v-if="isLoggedIn"/>
+        
+        <input type="text" placeholder="Suche" id="search" v-model="searchItem" />
+        
         <book-list-page-component :updateMessageBox="updateMessageBox" />
         
         <button @click="saveToFile($event)">speichern</button>
@@ -32,11 +35,17 @@ export default Vue.extend({
     data() {
         return {
             fileName: 'booklist.json',
-            messageBox: { text: '', typ: 'none' }
+            messageBox: { text: '', typ: 'none' },
+            searchItem: ''
         }
     },
     mounted() {
         this.loadFromFile()
+    },
+    computed: {
+        isLoggedIn(): boolean {
+            return this.$store.getters.isLoggedIn
+        }  
     },
     methods: {
         updateMessageBox( status ) {
@@ -106,5 +115,10 @@ export default Vue.extend({
 main {
     padding-top: 4.25em;
     padding-bottom: 3.75em;
+    text-align: center;
+}
+#search {
+    margin: 0 auto 1em auto;
+    min-width: 180px;
 }
 </style>

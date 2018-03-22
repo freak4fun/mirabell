@@ -18,7 +18,7 @@
             <div class='isbn'> {{ entry[columns[2]] | formatIsbn }} </div>
             <div class='pages'> {{  entry[columns[3]]  }} </div> 
             
-            <span v-if="isLoggedIn" @click="test()" asdf="deleteBook(entry[columns[2]])" ><i class="far fa-trash-alt fa-sm"></i></span>
+            <span v-if="isLoggedIn" @click="deleteBook(entry[columns[2]])" ><i class="far fa-trash-alt fa-sm"></i></span>
         </div>
         
         <modal-component :showModal=showModal :close=close>
@@ -103,7 +103,8 @@ export default Vue.extend({
         test: function(){
             
             console.log( "modal", this.showModal ) 
-            this.showModal = !this.showModal
+            //this.showModal = !this.showModal
+
 
         },
         toggleViewShowBook( )
