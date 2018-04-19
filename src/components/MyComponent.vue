@@ -35,7 +35,7 @@
 <!-- Ende Modal -->
 
         <ul id="example-1">
-            <li v-for="(value, key) in this.list">
+            <li :key=key v-for="(value, key) in this.list">
                 <span @click="selectItem(key)">{{ key }}: {{ value }} </span><button @click="deleteItem(key)">X</button>
             </li>
         </ul>

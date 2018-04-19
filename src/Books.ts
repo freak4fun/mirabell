@@ -19,6 +19,7 @@ export default class Books
         return -1
     }
 
+    // addBooks
     public setBooks( booklist: Book[] )
     {
         for( let b of booklist ) {
@@ -28,6 +29,7 @@ export default class Books
         
     }
 
+    // gwtAllBooks
     public getBooks(): Book[]
     {
         return this._booklist;
@@ -35,8 +37,9 @@ export default class Books
 
     public indexOfBook( book: Book ): number
     {
-        return this._booklist.indexOf( book )    
-    }    
+        return this.indexOfIsbn( book.isbn )    
+    }   
+
     public indexOfIsbn( isbn: string ): number
     {   
         return this._booklist.findIndex( ( element ) => element.isbn == isbn )

@@ -128,8 +128,14 @@ export default Vue.extend({
                     }
                     return sum
                 }, 0 )
-                //console.log( summe, ( summe % 10 ), ( ( summe % 10 ) % 10 ), 10 - ( ( summe % 10 ) % 10 ), +isbn[12] )
-                return ( ( summe % 10 ) % 10 ) === +isbn[ 12 ] 
+
+                const pruefZiffer = ( ( summe % 10 ) % 10 )
+                //console.log(summe, pruefZiffer, +isbn[12])
+                if( pruefZiffer === 0 )
+                {
+                    return pruefZiffer === +isbn[12]
+                }
+                return 10 - pruefZiffer === +isbn[12]
             }
 
             this.author = this.author.trim()
